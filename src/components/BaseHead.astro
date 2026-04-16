@@ -18,6 +18,10 @@ const {
   noindex = false,
 } = Astro.props;
 
+// Normalize canonical URL to strip query parameters and hash
+const rawCanonical = canonicalURL instanceof URL ? canonicalURL : new URL(canonicalURL, company.url);
+const normalizedCanonical = `${rawCanonical.origin}${rawCanonical.pathname}`;
+
 // Company Data (Strict Facts)
 const company = {
   name: 'THZ Innenrenovierung-Hausmeisterdienste',
@@ -94,12 +98,12 @@ const schemaWebSite = {
 <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+<link rel="canonical" href={normalizedCanonical} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
 <meta property="og:locale" content="de_DE" />
-<meta property="og:url" content={canonicalURL} />
+<meta property="og:url" content={normalizedCanonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:site_name" content={company.name} />
@@ -109,7 +113,7 @@ const schemaWebSite = {
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:url" content={normalizedCanonical} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, company.url)} />

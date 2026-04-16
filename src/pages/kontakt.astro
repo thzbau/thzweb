@@ -150,6 +150,16 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
               <h4>Vielen Dank!</h4>
               <p>Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns schnellstmöglich bei Ihnen.</p>
             </div>
+
+            <!-- Error Message (hidden by default) -->
+            <div class="error-alert" id="error-message" role="alert" aria-live="assertive">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" x2="12" y1="8" y2="12"/>
+                <line x1="12" x2="12.01" y1="16" y2="16"/>
+              </svg>
+              <p>Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns direkt an.</p>
+            </div>
           </form>
         </div>
         
@@ -237,27 +247,6 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
 </BaseLayout>
 
 <style>
-  /* Page Hero */
-  .page-hero {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: var(--color-white);
-    padding: var(--spacing-3xl) 0;
-    text-align: center;
-  }
-
-  .page-title {
-    color: var(--color-white);
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .page-subtitle {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.125rem;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
   /* Contact Section */
   .contact-section {
     background-color: var(--color-white);
@@ -451,6 +440,47 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
     margin: 0;
   }
 
+  /* Error Alert */
+  .error-alert {
+    display: none;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius-lg);
+    margin-top: var(--spacing-lg);
+    color: #b91c1c;
+  }
+
+  .error-alert.show {
+    display: flex;
+  }
+
+  .error-alert p {
+    margin: 0;
+    color: #b91c1c;
+  }
+
+  /* Submit Button Loading State */
+  .btn-submit[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .btn-submit .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
   /* Contact Info */
   .contact-info {
     display: flex;
@@ -525,12 +555,13 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
+    aspect-ratio: 16 / 9;
   }
 
   .map-wrapper iframe {
     display: block;
     width: 100%;
-    height: 300px;
+    height: 100%;
   }
 
   /* Responsive */
@@ -548,17 +579,44 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
 </style>
 
 <script>
-  // Form Validation
+  // Form Validation & Submission
   (function() {
     const form = document.getElementById('contact-form') as HTMLFormElement | null;
     const successMessage = document.getElementById('success-message');
-    
-    // Check for success URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
+    const errorMessage = document.getElementById('error-message');
+    const submitBtn = form?.querySelector('.btn-submit') as HTMLButtonElement | null;
+    const submitBtnOriginalContent = submitBtn?.innerHTML || '';
+
+    function setLoading(isLoading: boolean) {
+      if (!submitBtn) return;
+      submitBtn.disabled = isLoading;
+      submitBtn.innerHTML = isLoading
+        ? '<span class="spinner" aria-hidden="true"></span> Wird gesendet...'
+        : submitBtnOriginalContent;
+    }
+
+    function showSuccess() {
       form?.reset();
       successMessage?.classList.add('show');
-      // Remove success parameter from URL
+      errorMessage?.classList.remove('show');
+      successMessage?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function showError() {
+      errorMessage?.classList.add('show');
+      successMessage?.classList.remove('show');
+      errorMessage?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function hideMessages() {
+      successMessage?.classList.remove('show');
+      errorMessage?.classList.remove('show');
+    }
+
+    // Check for legacy success URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      showSuccess();
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
@@ -600,11 +658,12 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
       });
     });
 
-    // Form submission
-    form?.addEventListener('submit', (e) => {
+    // Form submission via fetch for inline UX
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideMessages();
+
       let isValid = true;
-      
-      // Validate all required fields
       form.querySelectorAll('input[required], textarea[required]').forEach((field) => {
         if (!validateField(field as HTMLInputElement | HTMLTextAreaElement)) {
           isValid = false;
@@ -612,10 +671,28 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
       });
 
       if (!isValid) {
-        e.preventDefault();
-        // Focus first error
         const firstError = form.querySelector('.has-error input, .has-error textarea') as HTMLElement | null;
         firstError?.focus();
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+        });
+
+        if (response.ok) {
+          showSuccess();
+        } else {
+          showError();
+        }
+      } catch (err) {
+        showError();
+      } finally {
+        setLoading(false);
       }
     });
   })();

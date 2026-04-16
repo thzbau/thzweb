@@ -122,6 +122,8 @@ const testimonials = [
             class="hero-img"
             width={600}
             height={450}
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
       </div>
@@ -282,7 +284,7 @@ const testimonials = [
   }
 
   .text-accent {
-    color: var(--color-accent);
+    color: var(--color-accent-hover);
   }
 
   .hero-subtitle {

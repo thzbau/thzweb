@@ -52,7 +52,7 @@ const projects = [
               <div class="ba-side ba-after">
                 <Image
                   src={project.after}
-                  alt="Nachher"
+                  alt={`Referenzprojekt ${index + 1} - Nachher`}
                   width={1200}
                   height={800}
                   class="ba-photo"
@@ -64,7 +64,7 @@ const projects = [
               <div class="ba-side ba-before" data-ba-before>
                 <Image
                   src={project.before}
-                  alt="Vorher"
+                  alt={`Referenzprojekt ${index + 1} - Vorher`}
                   width={1200}
                   height={800}
                   class="ba-photo"
@@ -107,27 +107,6 @@ const projects = [
 </BaseLayout>
 
 <style>
-  /* Page Hero */
-  .page-hero {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: var(--color-white);
-    padding: var(--spacing-3xl) 0;
-    text-align: center;
-  }
-
-  .page-title {
-    color: var(--color-white);
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-md);
-  }
-
-  .page-subtitle {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.125rem;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
   /* Sliders Section */
   .sliders-section {
     background-color: var(--color-white);
@@ -231,7 +210,7 @@ const projects = [
 
   .ba-tag-after {
     right: 16px;
-    background-color: rgba(253, 89, 9, 0.9);
+    background-color: rgba(0, 66, 82, 0.95);
   }
 
   /* Divider & Handle */

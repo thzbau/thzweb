@@ -22,6 +22,8 @@ const currentPath = Astro.url.pathname;
           src={logo} 
           alt="THZ Innenrenovierung Logo" 
           class="logo-image"
+          width={103}
+          height={60}
         />
       </a>
 
@@ -340,6 +342,13 @@ const currentPath = Astro.url.pathname;
       mobileMenu?.classList.toggle('active', !isExpanded);
       mobileOverlay?.classList.toggle('active', !isExpanded);
       document.body.style.overflow = !isExpanded ? 'hidden' : '';
+
+      if (!isExpanded) {
+        // Move focus to first mobile nav link when opening
+        setTimeout(() => {
+          mobileMenu?.querySelector('a')?.focus();
+        }, 50);
+      }
     }
 
     function closeMenu() {
@@ -347,14 +356,29 @@ const currentPath = Astro.url.pathname;
       mobileMenu?.classList.remove('active');
       mobileOverlay?.classList.remove('active');
       document.body.style.overflow = '';
+      menuToggle?.focus();
     }
 
     menuToggle?.addEventListener('click', toggleMenu);
     mobileOverlay?.addEventListener('click', closeMenu);
 
-    // Close menu on ESC key
+    // Close menu on ESC key and trap focus
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeMenu();
+
+      if (e.key !== 'Tab' || !mobileMenu?.classList.contains('active')) return;
+      const focusableElements = mobileMenu.querySelectorAll('a[href], button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+      if (focusableElements.length === 0) return;
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+      } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
     });
 
     // Close menu when clicking on a link

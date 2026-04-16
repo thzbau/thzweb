@@ -2,7 +2,7 @@
 
 ## Projekt-Übersicht
 
-Dies ist eine hochkonvertierende, blitzschnelle und 100% DSGVO-konforme statische Website für **THZ Innenrenovierung-Hausmeisterdienste**, ein Einzelunternehmen in Siegen, Deutschland. Die Website wird mit Astro als Static Site generiert und auf Netlify gehostet.
+Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**, ein Einzelunternehmen in Siegen, Deutschland. Die Website wird mit Astro als Static Site Generator erstellt und ist für das Hosting auf Netlify optimiert.
 
 **Inhaber:** Halil Zeka  
 **Adresse:** Roster str 66, 57074 Siegen  
@@ -17,12 +17,12 @@ Dies ist eine hochkonvertierende, blitzschnelle und 100% DSGVO-konforme statisch
 |-------------|---------|------------|
 | [Astro](https://astro.build/) | ^6.1.3 | Static Site Generator |
 | [Tailwind CSS](https://tailwindcss.com/) | ^4.2.2 | CSS-Framework |
-| [@tailwindcss/vite](https://tailwindcss.com/docs/guides/astro) | ^4.2.2 | Vite-Integration für Tailwind |
+| [@tailwindcss/vite](https://tailwindcss.com/docs/guides/astro) | ^4.2.2 | Vite-Plugin für Tailwind |
 | [@fontsource/inter](https://fontsource.org/fonts/inter) | ^5.2.8 | Lokale Schriftart |
 | [Web3Forms](https://web3forms.com/) | - | Kontaktformular-Backend |
 | [Netlify](https://www.netlify.com/) | - | Hosting & Deployment |
 
-**Node.js Version:** >=22.12.0 (laut `package.json` engines). Hinweis: `netlify.toml` setzt aktuell `NODE_VERSION = "20"`.
+**Node.js Version:** >=22.12.0 (laut `package.json` engines). `netlify.toml` setzt `NODE_VERSION = "22"`.
 
 ---
 
@@ -32,33 +32,37 @@ Dies ist eine hochkonvertierende, blitzschnelle und 100% DSGVO-konforme statisch
 /
 ├── src/
 │   ├── components/           # Wiederverwendbare Astro-Komponenten
-│   │   ├── BaseHead.astro    # SEO & Meta-Management (Schema.org JSON-LD)
+│   │   ├── BaseHead.astro    # SEO, Meta-Tags, Schema.org JSON-LD
 │   │   ├── CookieBanner.astro # DSGVO-konformes Cookie-Banner
 │   │   ├── Footer.astro      # 3-Spalten Footer mit Kontaktdaten
 │   │   ├── Header.astro      # Sticky Header + Mobile Navigation
 │   │   └── WhatsAppButton.astro # Sticky WhatsApp-Button
-│   ├── layouts/              # Layout-Komponenten
-│   │   └── BaseLayout.astro  # Hauptlayout mit Header/Footer
+│   ├── layouts/
+│   │   └── BaseLayout.astro  # Hauptlayout mit Skip-Link, Header, Footer, CookieBanner, WhatsAppButton
 │   ├── pages/                # Astro-Seiten (File-based Routing)
-│   │   ├── index.astro       # Startseite
-│   │   ├── leistungen.astro  # Leistungen-Seite
-│   │   ├── referenzen.astro  # Referenzen/Galerie
-│   │   ├── ueber-uns.astro   # Über uns
-│   │   ├── kontakt.astro     # Kontakt + Formular
-│   │   ├── impressum.astro   # Impressum (Pflicht)
-│   │   ├── datenschutz.astro # Datenschutz (Pflicht)
+│   │   ├── index.astro       # Startseite (Hero, Services, Trust-Bar, Prozess, Testimonials, CTA)
+│   │   ├── leistungen.astro  # Detaillierte Service-Beschreibungen
+│   │   ├── referenzen.astro  # Vorher-Nachher-Vergleiche (interaktive Slider)
+│   │   ├── ueber-uns.astro   # Über uns mit Portrait und Unternehmensdaten
+│   │   ├── kontakt.astro     # Kontakt + Web3Forms-Formular + Google Maps
+│   │   ├── impressum.astro   # Impressum (Pflichtseite)
+│   │   ├── datenschutz.astro # Datenschutzerklärung (Pflichtseite)
 │   │   └── 404.astro         # 404 Fehlerseite
 │   ├── styles/
-│   │   └── global.css        # CSS-Variablen & Design-System
+│   │   └── global.css        # CSS-Variablen, Base Styles, Utility Classes
 │   └── assets/
-│       └── images/           # Bilder für WebP/AVIF-Optimierung
+│       └── images/           # 29 Bilddateien (JPEG/JPG) für die gesamte Website
 ├── public/
-│   ├── fonts/
+│   ├── fonts/                # Lokale Schriftarten (falls vorhanden)
+│   ├── images/               # Statische Bilder (OG-Image)
 │   ├── favicon.ico
-│   └── favicon.svg
-├── netlify.toml              # Netlify Config (Security Headers)
+│   ├── favicon.svg
+│   ├── apple-touch-icon.png
+│   ├── robots.txt
+│   └── sitemap.xml
+├── netlify.toml              # Netlify Config (Build, Security Headers, Redirects, Caching)
 ├── astro.config.mjs          # Astro Konfiguration
-├── tsconfig.json             # TypeScript Konfiguration
+├── tsconfig.json             # TypeScript Konfiguration mit Pfad-Aliassen
 ├── package.json              # Dependencies & Scripts
 ├── .env                      # Umgebungsvariablen (nicht im Git)
 └── .env.example              # Beispiel-Env-Datei
@@ -85,25 +89,28 @@ npm run preview
 npm run astro [command]
 ```
 
-**Wichtig:** Es ist aktuell kein Test-Framework im Projekt konfiguriert. Es gibt keine Unit-Tests, Integrationstests oder E2E-Tests.
+**Wichtig:** Es ist kein Test-Framework im Projekt konfiguriert. Es gibt keine Unit-Tests, Integrationstests oder E2E-Tests.
 
 ---
 
 ## Konfiguration
 
-### Astro-Konfiguration (astro.config.mjs)
+### Astro-Konfiguration (`astro.config.mjs`)
 
 ```javascript
 {
   site: 'https://thz-renovierung.de',
   output: 'static',
+  vite: {
+    plugins: [tailwindcss()]
+  },
   build: { format: 'directory' },
   compressHTML: true,
   prefetch: true
 }
 ```
 
-### TypeScript-Pfade (tsconfig.json)
+### TypeScript-Pfade (`tsconfig.json`)
 
 | Alias | Ziel |
 |-------|------|
@@ -121,6 +128,9 @@ Kopiere `.env.example` nach `.env` und konfiguriere:
 # Web3Forms API Key für Kontaktformular
 # Kostenlos erhältlich bei: https://web3forms.com/
 PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
+
+# Site URL (für Produktion)
+# PUBLIC_SITE_URL=https://thz-renovierung.de
 ```
 
 **Wichtig:** `.env` ist in `.gitignore` eingetragen und wird nie committed.
@@ -129,7 +139,7 @@ PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
 
 ## Design-System
 
-### Farbpalette (CSS-Variablen in global.css)
+### Farbpalette (CSS-Variablen in `global.css`)
 
 | Name | Wert | Verwendung |
 |------|------|------------|
@@ -139,6 +149,11 @@ PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
 | `--color-accent` | `#fd5909` | CTAs, Buttons, Highlights |
 | `--color-accent-hover` | `#e54d00` | Button-Hover |
 | `--color-accent-light` | `#ff7a3a` | Light-Variante |
+| `--color-white` | `#ffffff` | Hintergründe, Text auf dunklem Grund |
+| `--color-gray-50` bis `--color-gray-900` | Graustufen | UI-Elemente, Text-Hierarchie |
+| `--color-text-primary` | `--color-gray-900` | Haupttext |
+| `--color-text-secondary` | `--color-gray-600` | Sekundärer Text |
+| `--color-border` | `--color-gray-200` | Rahmen, Trennlinien |
 
 ### Typografie
 
@@ -154,9 +169,11 @@ PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
 .btn-secondary /* Primär-Farbe (Dunkelblau) */
 .btn-outline  /* Transparent mit Border */
 .btn-lg       /* Größere Padding-Variante */
+.btn-sm       /* Kleinere Padding-Variante */
 .container    /* Max-width: 1280px, zentriert */
 .section      /* Padding: 4rem oben/unten */
 .section-sm   /* Padding: 2rem oben/unten */
+.page-hero    /* Gemeinsamer Hero für Unterseiten */
 ```
 
 ---
@@ -206,21 +223,29 @@ const items = [...];
 </script>
 ```
 
+### Bildverwendung
+
+- Astro's `<Image />`-Komponente wird für alle Bilder verwendet (`import { Image } from 'astro:assets'`)
+- Bilder werden aus `src/assets/images/` importiert
+- Attribute wie `width`, `height`, `alt` sind Pflicht
+- Das `public/`-Verzeichnis enthält nur statische Assets wie Favicon
+
 ### Accessibility (A11y) Standards
 
 - **Semantisches HTML:** `<header>`, `<main>`, `<section>`, `<nav>`, `<article>` verwenden
-- **ARIA-Labels:** Bei allen interaktiven Elementen
+- **ARIA-Labels:** Bei allen interaktiven Elementen und Dialogen
 - **Skip-Link:** Vorhanden in `BaseLayout.astro` für Screenreader
 - **Focus-Styles:** Sichtbarer Focus-Ring (`*:focus-visible`)
-- **Alt-Texte:** Bei allen Bildern Pflicht (Astro `Image`-Komponente)
+- **Alt-Texte:** Bei allen Bildern Pflicht
 - **Kontrast:** WCAG AA konforme Farbkontraste
 
 ### Performance-Optimierungen
 
-- `<Image />` Komponente von Astro verwenden (optimiert WebP/AVIF)
+- `<Image />` Komponente von Astro verwendet (optimiert WebP/AVIF)
 - Inline-SVGs statt Icon-Fonts
-- `loading="lazy"` für unter-the-fold Bilder
+- `loading="lazy"` für unter-the-fold Bilder (wird von Astro Image automatisch gesetzt)
 - CSS-Variablen für schnelle Theme-Updates
+- `compressHTML: true` und `prefetch: true` in Astro Config
 
 ---
 
@@ -228,38 +253,39 @@ const items = [...];
 
 | Seite | URL | Beschreibung |
 |-------|-----|--------------|
-| Startseite | `/` | Hero, Services-Teaser, Trust-Bar, Prozess, Testimonials, CTA |
-| Leistungen | `/leistungen` | Detaillierte Service-Beschreibungen (Trockenbau, Boden, Maler, Hausmeister) |
-| Referenzen | `/referenzen` | Projektgalerie mit 12 Bildern |
-| Über uns | `/ueber-uns` | Unternehmensinfos, Portrait, Werte, Firmendaten |
+| Startseite | `/` | Hero, Services-Teaser, Trust-Bar, 3-Schritte-Prozess, Testimonials, CTA |
+| Leistungen | `/leistungen` | Detaillierte Service-Beschreibungen (Trockenbau, Boden, Maler, Renovierung, Hausmeister) mit alternierendem Layout |
+| Referenzen | `/referenzen` | 6 interaktive Vorher-Nachher-Vergleiche mit Slider-Funktion |
+| Über uns | `/ueber-uns` | Unternehmensinfos, Portrait von Halil Zeka, Werte, Firmendaten |
 | Kontakt | `/kontakt` | Web3Forms-Formular + Kontaktdaten + Google Maps iFrame |
 | Impressum | `/impressum` | Rechtliches (Pflicht) |
 | Datenschutz | `/datenschutz` | DSGVO-Text (Pflicht) |
-| 404 | `/404` | Fehlerseite |
+| 404 | `/404` | Fehlerseite mit `noindex` |
 
 ---
 
 ## DSGVO / Datenschutz
 
-Die Website ist 100% DSGVO-konform:
+Die Website ist auf DSGVO-Konformität ausgelegt:
 
-- ✅ **100% lokale Ressourcen** (keine externen CDNs)
-- ✅ **Lokale Schriften** (@fontsource/inter, kein Google Fonts CDN)
-- ✅ **Keine Tracking-Scripts** (kein Google Analytics)
-- ✅ **Cookie-Banner** mit Opt-In/Opt-Out (localStorage)
-- ✅ **Web3Forms** (EU-Server für Formular-Backend)
-- ✅ **Vollständige Datenschutzerklärung**
-- ✅ **Security Headers** via netlify.toml
+- **100% lokale Ressourcen** (keine externen CDNs für Schriften oder Scripts)
+- **Lokale Schriften** (@fontsource/inter, kein Google Fonts CDN)
+- **Keine Tracking-Scripts** (kein Google Analytics)
+- **Cookie-Banner** mit Opt-In/Opt-Out (localStorage)
+- **Web3Forms** (Formular-Backend)
+- **Vollständige Datenschutzerklärung**
+- **Security Headers** via `netlify.toml`
 
 ### Cookie-Banner-Implementierung
 
 - Speichert Zustand in `localStorage` unter Schlüssel `thz_cookie_consent`
 - Werte: `'accepted'` | `'declined'`
 - Wird nur bei fehlendem Consent nach 1 Sekunde angezeigt
+- Implementiert in `src/components/CookieBanner.astro`
 
 ---
 
-## Security Headers (netlify.toml)
+## Security Headers (`netlify.toml`)
 
 ```toml
 X-Frame-Options = "DENY"
@@ -268,10 +294,16 @@ X-XSS-Protection = "1; mode=block"
 Referrer-Policy = "strict-origin-when-cross-origin"
 Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
 Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;"
+Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;"
 ```
 
 Zusätzlich sind Cache-Header für statische Assets (`/_astro/*`, `*.woff2`, `*.webp`, `*.avif`) auf 1 Jahr konfiguriert.
+
+### Redirect-Regeln
+
+- `/kontakt.html` → `/kontakt` (301)
+- `/impressum.html` → `/impressum` (301)
+- `/datenschutz.html` → `/datenschutz` (301)
 
 ---
 
@@ -284,12 +316,6 @@ Zusätzlich sind Cache-Header für statische Assets (`/_astro/*`, `*.woff2`, `*.
 3. Build-Einstellungen:
    - **Build Command:** `npm run build`
    - **Publish Directory:** `dist`
-
-### Redirect-Regeln in netlify.toml
-
-- `/kontakt.html` → `/kontakt` (301)
-- `/impressum.html` → `/impressum` (301)
-- `/datenschutz.html` → `/datenschutz` (301)
 
 ### Manuelles Deployment
 
@@ -305,8 +331,8 @@ npm run build
 ### Schema.org JSON-LD
 
 In `BaseHead.astro` implementiert:
-- **LocalBusiness:** Firmendaten, Adresse, Öffnungszeiten (Mo–Fr 08:00–18:00)
-- **WebSite:** Website-Struktur, Suche
+- **LocalBusiness:** Firmendaten, Adresse, Geo-Koordinaten, Öffnungszeiten (Mo–Fr 08:00–18:00)
+- **WebSite:** Website-Struktur, SearchAction
 
 ### Open Graph Tags
 
@@ -317,9 +343,39 @@ Alle Seiten haben vollständige OG-Tags für Social Sharing:
 ### Meta-Tags
 
 - Canonical URL
-- Robots (index/follow, auf 404/noindex-Seiten `noindex, nofollow`)
-- Theme Color (#004252)
+- Robots (`index, follow`; auf 404/noindex-Seiten `noindex, nofollow`)
+- Theme Color (`#004252`)
 - Viewport (responsive)
+
+---
+
+## Besondere Features
+
+### Interaktive Vorher-Nachher-Slider (`referenzen.astro`)
+
+- 6 Projekte mit je einem "Before/After"-Vergleich
+- Interaktiver Slider per Maus/Touch
+- CSS `clip-path` für das Überblenden
+- Intersection Observer für Fade-in-Animationen
+- Vanilla-JavaScript in IIFE innerhalb der Seite
+
+### Kontaktformular (`kontakt.astro`)
+
+- Web3Forms-Integration mit Umgebungsvariable `PUBLIC_WEB3FORMS_KEY`
+- Client-seitige Validierung (Name, E-Mail, Nachricht, Datenschutz-Checkbox)
+- Honeypot-Spam-Schutz (`botcheck`)
+- Fetch-basierte Formularübertragung für inline Erfolgs-/Fehlermeldungen
+- Ladezustand am Submit-Button
+- Erfolgsmeldung bei `?success=true` URL-Parameter (Legacy-Support)
+
+### Mobile Navigation (`Header.astro`)
+
+- Hamburger-Menü mit Animation
+- Overlay bei geöffnetem Menü
+- ESC-Taste schließt das Menü
+- Klick auf Link schließt das Menü
+- Scroll-Shadow für den Header
+- Fokus-Trap im mobilen Menü für Barrierefreiheit
 
 ---
 
@@ -332,26 +388,22 @@ Alle Seiten haben vollständige OG-Tags für Social Sharing:
 - [ ] Bilder optimieren (WebP/AVIF via Astro Image)
 - [ ] Lighthouse-Score prüfen
 
-### Vor Go-Live Checkliste
+### Änderungen an Kerninhalten
 
-- [ ] Web3Forms API Key in `.env` eintragen
-- [ ] Echte Bilder in `src/assets/images/` kopieren
-- [ ] Domain in `astro.config.mjs` aktualisieren
-- [ ] Favicon anpassen
-- [ ] Google Maps iFrame auf Kontaktseite prüfen
-- [ ] Echte Kundenbewertungen einfügen
+Folgende Daten sind redundant an mehreren Stellen hinterlegt und müssen bei Änderungen synchronisiert werden:
+- **Unternehmensname, Adresse, Telefon, E-Mail:** In `BaseHead.astro`, `Footer.astro`, `Header.astro`, `kontakt.astro`, `impressum.astro`, `datenschutz.astro`, `ueber-uns.astro`
+- **Öffnungszeiten:** In `BaseHead.astro` (Schema.org JSON-LD) und `kontakt.astro`
+- **Navigation:** In `Header.astro`
 
 ---
 
 ## Troubleshooting
 
-### Häufige Probleme
-
 | Problem | Lösung |
 |---------|--------|
 | `astro` Befehl nicht gefunden | `npm install` ausführen |
 | Bilder werden nicht optimiert | `Image` Komponente verwenden, nicht `<img>` |
-| Styles nicht geladen | Prüfen ob `@import "tailwindcss";` in global.css vorhanden ist |
+| Styles nicht geladen | Prüfen ob `@import "tailwindcss";` in `global.css` vorhanden ist |
 | Formular sendet nicht | Web3Forms Key prüfen (`PUBLIC_WEB3FORMS_KEY`) |
 | Build schlägt fehl | Node.js Version prüfen (>=22.12.0) |
 
