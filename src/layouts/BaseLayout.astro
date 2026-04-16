@@ -1,0 +1,73 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const { title, description, image, type, noindex } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="de-DE" dir="ltr">
+  <head>
+    <BaseHead 
+      title={title} 
+      description={description} 
+      image={image} 
+      type={type}
+      noindex={noindex}
+    />
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+    
+    <Header />
+    
+    <main id="main-content" class="main-content">
+      <slot />
+    </main>
+    
+    <Footer />
+    
+    <CookieBanner />
+    <WhatsAppButton />
+    
+    <slot name="scripts" />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 0 0 var(--radius-md) 0;
+    transition: top var(--transition-fast);
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+
+  .main-content {
+    padding-top: 80px; /* Header height */
+    min-height: calc(100vh - 80px);
+  }
+</style>

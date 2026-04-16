@@ -1,0 +1,109 @@
+---
+// Company phone number (without + for wa.me)
+const phoneNumber = '4915511693355';
+const whatsappText = encodeURIComponent('Hallo Herr Zeka, ich hätte gerne ein Angebot für eine Renovierung. Können Sie mich bitte zurückrufen?');
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappText}`;
+---
+
+<a
+  href={whatsappUrl}
+  class="whatsapp-button no-print"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="WhatsApp Nachricht senden"
+  title="Schreiben Sie uns auf WhatsApp"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+  </svg>
+  <span class="whatsapp-tooltip">WhatsApp</span>
+</a>
+
+<style>
+  .whatsapp-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    z-index: 900;
+    text-decoration: none;
+  }
+
+  .whatsapp-button:hover,
+  .whatsapp-button:focus-visible {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .whatsapp-button:active {
+    transform: scale(0.95);
+  }
+
+  .whatsapp-tooltip {
+    position: absolute;
+    right: 64px;
+    background-color: var(--color-gray-800);
+    color: var(--color-white);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    transition: opacity var(--transition-fast), visibility var(--transition-fast), transform var(--transition-fast);
+    pointer-events: none;
+  }
+
+  .whatsapp-button:hover .whatsapp-tooltip,
+  .whatsapp-button:focus-visible .whatsapp-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  /* Pulse animation on page load */
+  @keyframes whatsappPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+  }
+
+  .whatsapp-button {
+    animation: whatsappPulse 2s infinite;
+  }
+
+  .whatsapp-button:hover {
+    animation: none;
+  }
+
+  /* Adjust for smaller screens */
+  @media (max-width: 480px) {
+    .whatsapp-button {
+      bottom: 16px;
+      right: 16px;
+      width: 48px;
+      height: 48px;
+    }
+
+    .whatsapp-tooltip {
+      display: none;
+    }
+  }
+</style>

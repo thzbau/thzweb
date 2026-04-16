@@ -1,0 +1,396 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import portraitImage from '../assets/images/überuns.jpg';
+
+const values = [
+  {
+    title: 'Handwerkerehre',
+    description: 'Stolz auf jedes abgeschlossene Projekt und zufriedene Kunden.',
+    icon: 'award',
+  },
+  {
+    title: 'Pünktlichkeit',
+    description: 'Wir halten unsere Termine ein – Zuverlässigkeit ist unsere Stärke.',
+    icon: 'clock',
+  },
+  {
+    title: 'Sauberkeit',
+    description: 'Eine saubere Baustelle ist selbstverständlich für uns.',
+    icon: 'shield',
+  },
+  {
+    title: 'Qualität',
+    description: 'Hochwertige Materialien und präzise Ausführung garantieren Langlebigkeit.',
+    icon: 'thumbs',
+  },
+];
+---
+
+<BaseLayout
+  title="Über uns | THZ Innenrenovierung-Hausmeisterdienste Siegen"
+  description="Lernen Sie THZ Innenrenovierung kennen. Inhaber Halil Zeka und sein Team stehen für Qualität, Zuverlässigkeit und saubere Arbeit in Siegen & Umgebung."
+>
+  <!-- Hero -->
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="container">
+      <h1 id="page-title" class="page-title">Über THZ Innenrenovierung</h1>
+      <p class="page-subtitle">
+        Ihr zuverlässiger Handwerkspartner in Siegen und Umgebung
+      </p>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section class="about-section section" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <Image 
+            src={portraitImage} 
+            alt="Halil Zeka - Inhaber von THZ Innenrenovierung"
+            class="portrait-img"
+            width={400}
+            height={500}
+          />
+        </div>
+        
+        <div class="about-content">
+          <h2 id="about-title" class="about-title">Persönlich. Professionell. Zuverlässig.</h2>
+          
+          <div class="about-text">
+            <p>
+              THZ Innenrenovierung-Hausmeisterdienste steht für handwerkliche Qualität und 
+              zuverlässige Dienstleistung. Als Einzelunternehmen mit Sitz in Siegen betreue ich 
+              jedes Projekt persönlich – von der ersten Beratung bis zur finalen Übergabe.
+            </p>
+            
+            <p>
+              Mein Name ist <strong>Halil Zeka</strong> und ich bin Ihr Ansprechpartner für alle 
+              Arbeiten rund um Trockenbau, Bodenverlegung, Maler- und Tapezierarbeiten sowie 
+              Renovierungen aller Art. Mit jahrelanger Erfahrung im Handwerk weiß ich, worauf es ankommt:
+            </p>
+            
+            <ul class="about-list">
+              <li>Pünktliche und termingerechte Umsetzung</li>
+              <li>Saubere Arbeitsweise vor Ort</li>
+              <li>Transparente Kommunikation und faire Preise</li>
+              <li>Qualität, die Sie überzeugt</li>
+            </ul>
+            
+            <p>
+              Egal ob kleine Reparatur oder umfassende Renovierung – ich bringe 
+              Engagement und Fachwissen in jedes Projekt ein. Ihre Zufriedenheit ist mein größter Erfolg.
+            </p>
+          </div>
+          
+          <a href="/kontakt" class="btn btn-primary">
+            Kontakt aufnehmen
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/>
+              <path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section section" aria-labelledby="values-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="values-title" class="section-title">Unsere Werte</h2>
+        <p class="section-subtitle">Das macht THZ Innenrenovierung aus</p>
+      </div>
+      
+      <div class="values-grid">
+        {values.map((value) => (
+          <article class="value-card">
+            <div class="value-icon">
+              {value.icon === 'award' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="8" r="6"/>
+                  <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+                </svg>
+              )}
+              {value.icon === 'clock' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              )}
+              {value.icon === 'shield' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                </svg>
+              )}
+              {value.icon === 'thumbs' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 10v12"/>
+                  <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="value-title">{value.title}</h3>
+            <p class="value-description">{value.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Data -->
+  <section class="company-data section" aria-labelledby="company-title">
+    <div class="container">
+      <h2 id="company-title" class="sr-only">Unternehmensdaten</h2>
+      
+      <div class="data-card">
+        <h3 class="data-title">Unternehmensdaten</h3>
+        <dl class="data-list">
+          <div class="data-row">
+            <dt>Firmenname:</dt>
+            <dd>THZ Innenrenovierung-Hausmeisterdienste</dd>
+          </div>
+          <div class="data-row">
+            <dt>Inhaber:</dt>
+            <dd>Halil Zeka</dd>
+          </div>
+          <div class="data-row">
+            <dt>Adresse:</dt>
+            <dd>Roster str 66, 57074 Siegen</dd>
+          </div>
+          <div class="data-row">
+            <dt>Rechtsform:</dt>
+            <dd>Einzelunternehmen</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+    padding: var(--spacing-3xl) 0;
+    text-align: center;
+  }
+
+  .page-title {
+    color: var(--color-white);
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* About Section */
+  .about-section {
+    background-color: var(--color-white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    align-items: start;
+  }
+
+  .about-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .portrait-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .about-title {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .about-text p {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .about-list {
+    list-style: none;
+    margin: 0 0 var(--spacing-md) 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .about-list li {
+    position: relative;
+    padding-left: var(--spacing-lg);
+  }
+
+  .about-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--spacing-2xl);
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+  }
+
+  /* Values Section */
+  .values-section {
+    background-color: var(--color-gray-50);
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .value-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .value-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .value-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .value-description {
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* Company Data */
+  .company-data {
+    background-color: var(--color-white);
+    padding-top: 0;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .data-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--color-gray-50);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+  }
+
+  .data-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .data-list {
+    margin: 0;
+  }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+  }
+
+  .data-row:not(:last-child) {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .data-row dt {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .data-row dd {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr 2fr;
+      align-items: center;
+    }
+
+    .values-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

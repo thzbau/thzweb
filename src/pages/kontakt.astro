@@ -1,0 +1,622 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Get Web3Forms key from environment
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HERE';
+---
+
+<BaseLayout
+  title="Kontakt | THZ Innenrenovierung-Hausmeisterdienste Siegen"
+  description="Kontaktieren Sie THZ Innenrenovierung für ein unverbindliches Angebot. Tel: 0155 1169 3355 | Email: Info@thz-renovierung.de | Adresse: Roster str 66, 57074 Siegen"
+>
+  <!-- Hero -->
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="container">
+      <h1 id="page-title" class="page-title">Kontakt</h1>
+      <p class="page-subtitle">
+        Rufen Sie uns an, schreiben Sie uns – wir beraten Sie gerne unverbindlich.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section section" aria-labelledby="contact-title">
+    <div class="container">
+      <h2 id="contact-title" class="sr-only">Kontaktformular und Kontaktdaten</h2>
+      
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <h3 class="form-title">Schreiben Sie uns</h3>
+          <p class="form-subtitle">
+            Füllen Sie das Formular aus – wir melden uns schnellstmöglich bei Ihnen.
+          </p>
+          
+          <form 
+            class="contact-form" 
+            id="contact-form"
+            action="https://api.web3forms.com/submit" 
+            method="POST"
+            aria-label="Kontaktformular"
+          >
+            <!-- Web3Forms Configuration -->
+            <input type="hidden" name="access_key" value={web3formsKey} />
+            <input type="hidden" name="subject" value="Neue Anfrage von thz-renovierung.de" />
+            <input type="hidden" name="from_name" value="THZ Website Kontaktformular" />
+            <input type="hidden" name="redirect" value={`${Astro.site || ''}/kontakt?success=true`} />
+            
+            <!-- Honeypot Spam Protection -->
+            <input 
+              type="checkbox" 
+              name="botcheck" 
+              class="honeypot" 
+              tabindex="-1" 
+              autocomplete="off"
+              aria-hidden="true"
+            />
+            
+            <div class="form-group">
+              <label for="name" class="form-label">
+                Name <span class="required" aria-label="Pflichtfeld">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                class="form-input"
+                placeholder="Ihr vollständiger Name"
+                required
+                minlength="2"
+                autocomplete="name"
+              />
+              <span class="error-message" id="name-error">Bitte geben Sie Ihren Namen ein.</span>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email" class="form-label">
+                  E-Mail <span class="required" aria-label="Pflichtfeld">*</span>
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="form-input"
+                  placeholder="ihre@email.de"
+                  required
+                  autocomplete="email"
+                />
+                <span class="error-message" id="email-error">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+              </div>
+              
+              <div class="form-group">
+                <label for="phone" class="form-label">Telefon</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  class="form-input"
+                  placeholder="Ihre Telefonnummer"
+                  autocomplete="tel"
+                />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="message" class="form-label">
+                Nachricht <span class="required" aria-label="Pflichtfeld">*</span>
+              </label>
+              <textarea 
+                id="message" 
+                name="message" 
+                class="form-textarea"
+                placeholder="Beschreiben Sie Ihr Projekt..."
+                rows="5"
+                required
+                minlength="10"
+              ></textarea>
+              <span class="error-message" id="message-error">Bitte beschreiben Sie Ihr Anliegen (mindestens 10 Zeichen).</span>
+            </div>
+            
+            <div class="form-group form-consent">
+              <label class="checkbox-label">
+                <input 
+                  type="checkbox" 
+                  name="privacy" 
+                  class="checkbox-input"
+                  required
+                />
+                <span class="checkbox-text">
+                  Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. <span class="required">*</span>
+                </span>
+              </label>
+              <span class="error-message" id="privacy-error">Bitte akzeptieren Sie die Datenschutzerklärung.</span>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-submit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m22 2-7 20-4-9-9-4Z"/>
+                <path d="M22 2 11 13"/>
+              </svg>
+              Nachricht senden
+            </button>
+            
+            <!-- Success Message (hidden by default) -->
+            <div class="success-message" id="success-message" role="status" aria-live="polite">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="success-icon" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="m9 12 2 2 4-4"/>
+              </svg>
+              <h4>Vielen Dank!</h4>
+              <p>Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns schnellstmöglich bei Ihnen.</p>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h3 class="info-title">Direkter Kontakt</h3>
+          
+          <div class="info-cards">
+            <a href="tel:015511693355" class="info-card">
+              <div class="info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div class="info-content">
+                <span class="info-label">Telefon</span>
+                <span class="info-value">0155 1169 3355</span>
+              </div>
+            </a>
+            
+            <a href="mailto:Info@thz-renovierung.de" class="info-card">
+              <div class="info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect width="20" height="16" x="2" y="4" rx="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+              </div>
+              <div class="info-content">
+                <span class="info-label">E-Mail</span>
+                <span class="info-value">Info@thz-renovierung.de</span>
+              </div>
+            </a>
+            
+            <div class="info-card">
+              <div class="info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div class="info-content">
+                <span class="info-label">Adresse</span>
+                <address class="info-value">
+                  THZ Innenrenovierung<br />
+                  Roster str 66<br />
+                  57074 Siegen
+                </address>
+              </div>
+            </div>
+            
+            <div class="info-card">
+              <div class="info-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="info-content">
+                <span class="info-label">Erreichbarkeit</span>
+                <span class="info-value">
+                  Mo–Fr: 08:00–18:00 Uhr<br />
+                  Sa: Nach Vereinbarung
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Google Maps -->
+          <div class="map-wrapper">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.0!2d8.0156!3d50.8756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRoster+Str.+66%2C+57074+Siegen!5e0!3m2!1sde!2sde!4v1234567890"
+              width="100%" 
+              height="300" 
+              style="border:0; border-radius: var(--radius-lg);" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="THZ Innenrenovierung Standort - Roster str 66, 57074 Siegen"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+    padding: var(--spacing-3xl) 0;
+    text-align: center;
+  }
+
+  .page-title {
+    color: var(--color-white);
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    background-color: var(--color-white);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+
+  /* Form Styles */
+  .contact-form-wrapper {
+    background-color: var(--color-gray-50);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .form-subtitle {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-primary);
+  }
+
+  .required {
+    color: var(--color-accent);
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgb(0 66 82 / 0.1);
+    outline: none;
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* Honeypot - hidden from users */
+  .honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    opacity: 0;
+  }
+
+  /* Checkbox */
+  .form-consent {
+    margin-top: var(--spacing-lg);
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+  }
+
+  .checkbox-input {
+    margin-top: 4px;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+  }
+
+  .checkbox-text {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .checkbox-text a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .checkbox-text a:hover {
+    color: var(--color-accent);
+  }
+
+  /* Error Messages */
+  .error-message {
+    display: none;
+    color: #dc2626;
+    font-size: 0.75rem;
+    margin-top: var(--spacing-xs);
+  }
+
+  .form-group.has-error .error-message {
+    display: block;
+  }
+
+  .form-group.has-error .form-input,
+  .form-group.has-error .form-textarea {
+    border-color: #dc2626;
+  }
+
+  /* Submit Button */
+  .btn-submit {
+    width: 100%;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+  }
+
+  /* Success Message */
+  .success-message {
+    display: none;
+    text-align: center;
+    padding: var(--spacing-xl);
+    background-color: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: var(--radius-lg);
+    margin-top: var(--spacing-lg);
+  }
+
+  .success-message.show {
+    display: block;
+  }
+
+  .success-icon {
+    color: #22c55e;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .success-message h4 {
+    color: #166534;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .success-message p {
+    color: #15803d;
+    margin: 0;
+  }
+
+  /* Contact Info */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .info-title {
+    font-size: 1.5rem;
+  }
+
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--color-gray-50);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .info-card:hover {
+    background-color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  .info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .info-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: 2px;
+  }
+
+  .info-value {
+    font-weight: 500;
+    color: var(--color-text-primary);
+    font-style: normal;
+    line-height: 1.5;
+  }
+
+  /* Map */
+  .map-wrapper {
+    margin-top: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .map-wrapper iframe {
+    display: block;
+    width: 100%;
+    height: 300px;
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Form Validation
+  (function() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const successMessage = document.getElementById('success-message');
+    
+    // Check for success URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+      form?.reset();
+      successMessage?.classList.add('show');
+      // Remove success parameter from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    function validateField(field: HTMLInputElement | HTMLTextAreaElement) {
+      const formGroup = field.closest('.form-group');
+      if (!formGroup) return true;
+
+      let isValid = true;
+
+      if (field.hasAttribute('required')) {
+        if (field.type === 'checkbox') {
+          isValid = (field as HTMLInputElement).checked;
+        } else if (field.type === 'email') {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          isValid = emailRegex.test(field.value);
+        } else {
+          isValid = field.value.trim().length > 0;
+          
+          // Check minlength
+          const minLength = field.getAttribute('minlength');
+          if (minLength && isValid) {
+            isValid = field.value.trim().length >= parseInt(minLength);
+          }
+        }
+      }
+
+      formGroup.classList.toggle('has-error', !isValid);
+      return isValid;
+    }
+
+    // Real-time validation
+    form?.querySelectorAll('input, textarea').forEach((field) => {
+      field.addEventListener('blur', () => validateField(field as HTMLInputElement | HTMLTextAreaElement));
+      field.addEventListener('input', () => {
+        const formGroup = field.closest('.form-group');
+        if (formGroup?.classList.contains('has-error')) {
+          validateField(field as HTMLInputElement | HTMLTextAreaElement);
+        }
+      });
+    });
+
+    // Form submission
+    form?.addEventListener('submit', (e) => {
+      let isValid = true;
+      
+      // Validate all required fields
+      form.querySelectorAll('input[required], textarea[required]').forEach((field) => {
+        if (!validateField(field as HTMLInputElement | HTMLTextAreaElement)) {
+          isValid = false;
+        }
+      });
+
+      if (!isValid) {
+        e.preventDefault();
+        // Focus first error
+        const firstError = form.querySelector('.has-error input, .has-error textarea') as HTMLElement | null;
+        firstError?.focus();
+      }
+    });
+  })();
+</script>

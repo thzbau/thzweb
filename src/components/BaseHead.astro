@@ -1,0 +1,132 @@
+---
+// BaseHead.astro - SEO & Meta Management
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  canonicalURL?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'THZ Innenrenovierung-Hausmeisterdienste | Ihr Handwerker in Siegen',
+  description = 'THZ Innenrenovierung: Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten in Siegen & Umgebung. Unverbindliches Angebot anfordern!',
+  image = '/images/og-image.jpg',
+  type = 'website',
+  canonicalURL = Astro.url,
+  noindex = false,
+} = Astro.props;
+
+// Company Data (Strict Facts)
+const company = {
+  name: 'THZ Innenrenovierung-Hausmeisterdienste',
+  owner: 'Halil Zeka',
+  address: 'Roster str 66, 57074 Siegen',
+  phone: '015511693355',
+  email: 'Info@thz-renovierung.de',
+  url: 'https://thz-renovierung.de',
+};
+
+// Schema.org LocalBusiness JSON-LD
+const schemaLocalBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: company.name,
+  description: description,
+  url: company.url,
+  telephone: company.phone,
+  email: company.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Roster str 66',
+    addressLocality: 'Siegen',
+    postalCode: '57074',
+    addressCountry: 'DE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '50.8756',
+    longitude: '8.0160',
+  },
+  founder: {
+    '@type': 'Person',
+    name: company.owner,
+  },
+  areaServed: {
+    '@type': 'City',
+    name: 'Siegen',
+  },
+  priceRange: '€€',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '18:00',
+    },
+  ],
+  sameAs: [],
+};
+
+// Schema.org WebSite JSON-LD
+const schemaWebSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: company.name,
+  url: company.url,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${company.url}/suche?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+
+<!-- Character Encoding & Viewport -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content={company.owner} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content={company.name} />
+<meta property="og:image" content={new URL(image, company.url)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, company.url)} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#004252" />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaLocalBusiness)} />
+<script type="application/ld+json" set:html={JSON.stringify(schemaWebSite)} />
+
+<!-- Preconnect to Web3Forms for faster form submission -->
+<link rel="preconnect" href="https://api.web3forms.com" />
+
+<!-- Resource Hints -->
+<link rel="dns-prefetch" href="https://api.web3forms.com" />

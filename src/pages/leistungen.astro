@@ -1,0 +1,322 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import leistung1 from '../assets/images/leistung1.jpg';
+import leistung2 from '../assets/images/leistung2.jpg';
+import leistung3 from '../assets/images/leistung3.jpg';
+import leistung4 from '../assets/images/leistung4.jpg';
+import hausmeisterImg from '../assets/images/hausmeisterdienste.jpg';
+
+const services = [
+  {
+    id: 'trockenbau',
+    title: 'Trockenbau',
+    subtitle: 'Wände, Decken & Dämmungen',
+    description: 'Wir realisieren fachgerechte Trockenbau-Lösungen für Ihre Räume. Ob neue Raumaufteilung, abgehängte Decken oder professionelle Dämmung – wir setzen Ihre Wünsche präzise und sauber um.',
+    image: leistung1,
+    features: [
+      'Trennwände und Raumaufteilungen',
+      'Abgehängte Decken mit Beleuchtung',
+      'Wärme- und Schalldämmung',
+      'Indirekte Beleuchtungskonzepte',
+      'Schnelle, staubarme Montage',
+    ],
+    imagePosition: 'left',
+  },
+  {
+    id: 'boden',
+    title: 'Bodenverlegung',
+    subtitle: 'Laminat, Vinyl & Parkett',
+    description: 'Ein neuer Boden verändert den gesamten Raumcharakter. Wir verlegen Laminat, Vinyl und Parkett fachgerecht und mit äußerster Präzision – für ein perfektes Ergebnis, das Sie jahrelang begleitet.',
+    image: leistung2,
+    features: [
+      'Laminat-Verlegung aller Klassen',
+      'Vinyl-Designboden (Klick & Kleben)',
+      'Echtholz-Parkett',
+      'Vorbereitung und Ausgleich der Untergründe',
+      'Fugenspachtelung und Versiegelung',
+    ],
+    imagePosition: 'right',
+  },
+  {
+    id: 'maler',
+    title: 'Maler- & Tapezierarbeiten',
+    subtitle: 'Farbige Akzente & hochwertige Wände',
+    description: 'Saubere Farbarbeiten und hochwertige Tapezierungen sind unsere Stärke. Wir sorgen für makellose Oberflächen und setzen Ihre Wohnwünsche mit Farbe und Mustern gekonnt um.',
+    image: leistung3,
+    features: [
+      'Innenanstriche aller Art',
+      'Tapezierungen mit Vliestapeten & Papier',
+      'Spachtelung und Glättung',
+      'Lackierarbeiten an Türen und Fenstern',
+      'Beratung bei Farbwahl und Mustern',
+    ],
+    imagePosition: 'left',
+  },
+  {
+    id: 'renovierung',
+    title: 'Innenrenovierung',
+    subtitle: 'Komplettsanierung aus einer Hand',
+    description: 'Von der Wohnungsrenovierung bis zur kompletten Hausesanierung – wir begleiten Sie von der Planung bis zur fertigen Umsetzung. Sauber, termingerecht und mit höchstem Qualitätsanspruch.',
+    image: leistung4,
+    features: [
+      'Komplettrenovierungen von Wohnungen und Häusern',
+      'Badsanierung und Küchenmodernisierung',
+      'Elektro- und Sanitärarbeiten über Partner',
+      'Beratung, Planung und Umsetzung',
+      'Festpreisangebote ohne versteckte Kosten',
+    ],
+    imagePosition: 'right',
+  },
+  {
+    id: 'hausmeister',
+    title: 'Hausmeisterdienste',
+    subtitle: 'Betreuung von Immobilien & Außenanlagen',
+    description: 'Zuverlässige Hausmeisterdienste für Gewerbe und Privat. Von der regelmäßigen Wartung bis zur Gartenpflege – wir kümmern uns gründlich und termingerecht um Ihr Objekt.',
+    image: hausmeisterImg,
+    features: [
+      'Regelmäßige Wartung & Instandhaltung',
+      'Gartenpflege & Außenanlagen',
+      'Kleine Reparaturen vor Ort',
+      'Winterdienst (auf Anfrage)',
+      'Pünktlich & vertrauenswürdig',
+    ],
+    imagePosition: 'left',
+  },
+];
+---
+
+<BaseLayout
+  title="Leistungen | THZ Innenrenovierung-Hausmeisterdienste Siegen"
+  description="Überblick über unsere Dienstleistungen: Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten, Innenrenovierung und Hausmeisterdienste in Siegen & Umgebung."
+>
+  <!-- Hero -->
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="container">
+      <h1 id="page-title" class="page-title">Unsere Leistungen im Detail</h1>
+      <p class="page-subtitle">
+        Von Trockenbau bis zur Komplettrenovierung – wir bieten Ihnen professionelle Handwerksleistungen 
+        aus einer Hand. Sauber, termingerecht und zu fairen Preisen.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Detail -->
+  <section class="services-detail section" aria-label="Leistungsdetails">
+    <div class="container">
+      {services.map((service) => (
+        <article class={`service-block ${service.imagePosition}`} id={service.id}>
+          <div class="service-image-wrapper">
+            <Image 
+              src={service.image} 
+              alt={service.title}
+              class="service-image"
+              width={600}
+              height={400}
+            />
+          </div>
+          
+          <div class="service-content">
+            <span class="service-subtitle">{service.subtitle}</span>
+            <h2 class="service-title">{service.title}</h2>
+            <p class="service-description">{service.description}</p>
+            
+            <ul class="feature-list">
+              {service.features.map((feature) => (
+                <li class="feature-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+            
+            <a href="/kontakt" class="btn btn-primary">
+              Angebot anfordern
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-alt" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-box">
+        <h2 id="cta-title" class="cta-title">Haben Sie Fragen zu unseren Leistungen?</h2>
+        <p class="cta-text">Wir beraten Sie gerne persönlich und unverbindlich.</p>
+        <a href="/kontakt" class="btn btn-primary btn-lg">Jetzt Kontakt aufnehmen</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+    padding: var(--spacing-3xl) 0;
+    text-align: center;
+  }
+
+  .page-title {
+    color: var(--color-white);
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Services Detail */
+  .services-detail {
+    background-color: var(--color-white);
+  }
+
+  .service-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
+    padding-bottom: var(--spacing-3xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .service-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .service-image-wrapper {
+    order: 1;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-block.right .service-image-wrapper {
+    order: 1;
+  }
+
+  .service-block.right .service-content {
+    order: 2;
+  }
+
+  .service-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    display: block;
+  }
+
+  .service-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .service-subtitle {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .service-title {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .service-description {
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .feature-list {
+    list-style: none;
+    margin: 0 0 var(--spacing-xl) 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .feature-icon {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* CTA Alternative */
+  .cta-alt {
+    background-color: var(--color-gray-50);
+  }
+
+  .cta-box {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .cta-box .cta-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .cta-box .cta-text {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* Responsive */
+  @media (min-width: 1024px) {
+    .service-block {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+
+    .service-block.left .service-image-wrapper {
+      order: 1;
+    }
+
+    .service-block.left .service-content {
+      order: 2;
+    }
+
+    .service-block.right .service-image-wrapper {
+      order: 2;
+    }
+
+    .service-block.right .service-content {
+      order: 1;
+    }
+  }
+</style>

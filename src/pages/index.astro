@@ -1,17 +1,609 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import heroImage from '../assets/images/hero.jpg';
+import leistung1 from '../assets/images/leistung1.jpg';
+import leistung2 from '../assets/images/leistung2.jpg';
+import leistung3 from '../assets/images/leistung3.jpg';
+import leistung4 from '../assets/images/leistung4.jpg';
+import hausmeisterImg from '../assets/images/hausmeisterdienste.jpg';
 
+const services = [
+  {
+    title: 'Trockenbau',
+    description: 'Wände, Decken und Dämmungen – fachgerecht und schnell umgesetzt.',
+    image: leistung1,
+  },
+  {
+    title: 'Bodenverlegung',
+    description: 'Laminat, Vinyl oder Parkett – perfekt verlegt für jeden Raum.',
+    image: leistung2,
+  },
+  {
+    title: 'Maler- & Tapezierarbeiten',
+    description: 'Saubere Farbarbeiten und hochwertige Tapezierungen.',
+    image: leistung3,
+  },
+  {
+    title: 'Innenrenovierung',
+    description: 'Komplettrenovierungen vom Profi – von A bis Z für Wohnungen und Häuser.',
+    image: leistung4,
+  },
+  {
+    title: 'Hausmeisterdienste',
+    description: 'Zuverlässige Betreuung von Immobilien und Außenanlagen.',
+    image: hausmeisterImg,
+  },
+];
+
+const trustPoints = [
+  'Pünktliche Termineinhaltung',
+  'Saubere Baustelle garantiert',
+  'Transparente Festpreise',
+  'Fachgerechte Ausführung',
+];
+
+const processSteps = [
+  {
+    step: '01',
+    title: 'Kontaktaufnahme',
+    description: 'Rufen Sie uns an oder schreiben Sie uns – wir sind für Sie da.',
+  },
+  {
+    step: '02',
+    title: 'Besichtigung & Angebot',
+    description: 'Wir besichtigen Ihr Objekt und erstellen Ihnen ein kostenloses Angebot.',
+  },
+  {
+    step: '03',
+    title: 'Professionelle Umsetzung',
+    description: 'Saubere, termingerechte Ausführung Ihres Projekts.',
+  },
+];
+
+const testimonials = [
+  {
+    name: "Martina S.",
+    location: "Siegen",
+    text: "Herr Zeka hat unsere Küche komplett renoviert. Pünktlich, sauber und das Ergebnis ist top! Absolut empfehlenswert.",
+    rating: 5
+  },
+  {
+    name: "Michael K.",
+    location: "Kreuztal", 
+    text: "Sehr zuverlässiger Handwerker. Der Boden wurde perfekt verlegt und die Preise sind fair. Gerne wieder!",
+    rating: 5
+  },
+  {
+    name: "Familie Weber",
+    location: "Wilnsdorf",
+    text: "Von der Beratung bis zur Umsetzung alles perfekt. Wir sind begeistert von der Qualität und Sauberheit!",
+    rating: 5
+  }
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="THZ Innenrenovierung-Hausmeisterdienste | Ihr Handwerker in Siegen"
+  description="Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten, Innenrenovierung und Hausmeisterdienste in Siegen & Umgebung. Sauber, schnell und professionell."
+>
+  <!-- Hero Section -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1 id="hero-title" class="hero-title">
+            Ihre Experten für <span class="text-accent">Hausmeisterdienste</span> in Siegen & Umgebung
+          </h1>
+          <p class="hero-subtitle">
+            THZ Innenrenovierung-Hausmeisterdienste: Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, 
+            Maler- & Tapezierarbeiten, Innenrenovierung und Hausmeisterdienste. Sauber, schnell und professionell.
+          </p>
+          <div class="hero-buttons">
+            <a href="/kontakt" class="btn btn-primary btn-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              Kostenloses Angebot
+            </a>
+            <a href="/leistungen" class="btn btn-outline btn-lg">
+              Unsere Leistungen
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <Image 
+            src={heroImage} 
+            alt="Professionelle Renovierungsarbeiten von THZ Innenrenovierung" 
+            class="hero-img"
+            width={600}
+            height={450}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-bar" aria-label="Vertrauensfaktoren">
+    <div class="container">
+      <div class="trust-grid">
+        {trustPoints.map((point) => (
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="trust-icon" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+            <span class="trust-text">{point}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Teaser -->
+  <section class="services section" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="services-title" class="section-title">Unsere Leistungen</h2>
+        <p class="section-subtitle">
+          Von Trockenbau bis zur Komplettrenovierung – wir sind Ihr kompetenter Partner.
+        </p>
+      </div>
+      
+      <div class="services-grid">
+        {services.map((service) => (
+          <article class="service-card">
+            <div class="service-image">
+              <Image 
+                src={service.image} 
+                alt={service.title}
+                class="service-img"
+                width={400}
+                height={250}
+              />
+            </div>
+            <h3 class="service-title">{service.title}</h3>
+            <p class="service-description">{service.description}</p>
+            <a href="/leistungen" class="service-link">
+              Mehr erfahren
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-Step Process -->
+  <section class="process section" aria-labelledby="process-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="process-title" class="section-title">In 3 Schritten zu Ihrem neuen Raum</h2>
+        <p class="section-subtitle">
+          Unkompliziert und transparent – so arbeiten wir.
+        </p>
+      </div>
+      
+      <div class="process-grid">
+        {processSteps.map((item) => (
+          <article class="process-card">
+            <span class="process-number">{item.step}</span>
+            <h3 class="process-title">{item.title}</h3>
+            <p class="process-description">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials section" aria-labelledby="testimonials-title">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="testimonials-title" class="section-title">Das sagen unsere Kunden</h2>
+        <p class="section-subtitle">Echte Bewertungen von zufriedenen Kunden</p>
+      </div>
+      
+      <div class="testimonials-grid">
+        {testimonials.map((testimonial) => (
+          <article class="testimonial-card">
+            <div class="testimonial-stars">
+              {Array.from({ length: testimonial.rating }).map(() => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <blockquote class="testimonial-text">
+              "{testimonial.text}"
+            </blockquote>
+            <div class="testimonial-author">
+              <strong>{testimonial.name}</strong>
+              <span>{testimonial.location}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="cta section" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-content">
+        <h2 id="cta-title" class="cta-title">Bereit für Ihr Projekt?</h2>
+        <p class="cta-text">
+          Rufen Sie uns an oder schreiben Sie uns – wir beraten Sie gerne unverbindlich.
+        </p>
+        <div class="cta-buttons">
+          <a href="tel:015511693355" class="btn btn-primary btn-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            0155 1169 3355
+          </a>
+          <a href="/kontakt" class="btn btn-secondary btn-lg">
+            Kontaktformular
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    padding: var(--spacing-3xl) 0;
+    background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+  }
+
+  .text-accent {
+    color: var(--color-accent);
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xl);
+    max-width: 540px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .btn-lg {
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1rem;
+  }
+
+  .hero-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Trust Bar */
+  .trust-bar {
+    background-color: var(--color-gray-50);
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  .trust-icon {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .trust-text {
+    font-size: 0.875rem;
+  }
+
+  /* Section Styles */
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--spacing-2xl);
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+  }
+
+  /* Services */
+  .services {
+    background-color: var(--color-white);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .service-card {
+    background-color: var(--color-gray-50);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .service-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .service-card:hover .service-img {
+    transform: scale(1.05);
+  }
+
+  .service-title {
+    font-size: 1.25rem;
+    margin: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+  }
+
+  .service-description {
+    margin: 0 var(--spacing-md) var(--spacing-md);
+  }
+
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin: 0 var(--spacing-md) var(--spacing-md);
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .service-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* Process */
+  .process {
+    background-color: var(--color-gray-50);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .process-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    text-align: center;
+  }
+
+  .process-number {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 48px;
+    border-radius: 50%;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .process-title {
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* Testimonials */
+  .testimonials {
+    background-color: var(--color-white);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .testimonial-card {
+    background-color: var(--color-gray-50);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    position: relative;
+  }
+
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    font-size: 4rem;
+    color: var(--color-primary);
+    opacity: 0.1;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .testimonial-stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: var(--spacing-md);
+    color: #fbbf24;
+  }
+
+  .testimonial-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+    font-style: italic;
+    margin: 0 0 var(--spacing-md) 0;
+  }
+
+  .testimonial-author {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .testimonial-author strong {
+    color: var(--color-text-primary);
+  }
+
+  .testimonial-author span {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  /* CTA Section */
+  .cta {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    color: var(--color-white);
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .cta-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+  }
+
+  .cta .btn-secondary {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+  }
+
+  .cta .btn-secondary:hover {
+    background-color: var(--color-gray-100);
+  }
+
+  /* Responsive */
+  @media (min-width: 640px) {
+    .trust-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonials-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+    }
+
+    .trust-text {
+      font-size: 1rem;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .process-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonials-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
