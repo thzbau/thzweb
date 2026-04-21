@@ -93,6 +93,12 @@ const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappText}`;
     animation: none;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp-button {
+      animation: none;
+    }
+  }
+
   /* Adjust for smaller screens */
   @media (max-width: 480px) {
     .whatsapp-button {

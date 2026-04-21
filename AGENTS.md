@@ -1,13 +1,14 @@
+<!-- AGENTS.md -->
 # THZ Innenrenovierung-Hausmeisterdienste Website
 
 ## Projekt-Übersicht
 
-Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**, ein Einzelunternehmen in Siegen, Deutschland. Die Website wird mit Astro als Static Site Generator erstellt und ist für das Hosting auf Netlify optimiert.
+Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**, ein Einzelunternehmen in Siegen, Deutschland. Inhaber ist Halil Zeka. Die Website wird mit Astro als Static Site Generator erstellt und ist für das Hosting auf Netlify optimiert.
 
-**Inhaber:** Halil Zeka  
-**Adresse:** Roster str 66, 57074 Siegen  
-**Kontakt:** 0155 1169 3355 | Info@thz-renovierung.de  
-**Live-URL:** https://thz-renovierung.de
+- **Inhaber:** Halil Zeka
+- **Adresse:** Roster str 66, 57074 Siegen
+- **Kontakt:** 0155 1169 3355 | Info@thz-renovierung.de
+- **Live-URL:** https://thz-renovierung.de
 
 ---
 
@@ -15,12 +16,12 @@ Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**
 
 | Technologie | Version | Verwendung |
 |-------------|---------|------------|
-| [Astro](https://astro.build/) | ^6.1.3 | Static Site Generator |
-| [Tailwind CSS](https://tailwindcss.com/) | ^4.2.2 | CSS-Framework |
+| [Astro](https://docs.astro.build/) | ^6.1.3 | Static Site Generator |
+| [Tailwind CSS](https://tailwindcss.com/) | ^4.2.2 | CSS-Framework (global importiert) |
 | [@tailwindcss/vite](https://tailwindcss.com/docs/guides/astro) | ^4.2.2 | Vite-Plugin für Tailwind |
-| [@fontsource/inter](https://fontsource.org/fonts/inter) | ^5.2.8 | Lokale Schriftart |
-| [Web3Forms](https://web3forms.com/) | - | Kontaktformular-Backend |
-| [Netlify](https://www.netlify.com/) | - | Hosting & Deployment |
+| [@fontsource/inter](https://fontsource.org/fonts/inter) | ^5.2.8 | Lokale Schriftart (400/500/600/700) |
+| [Web3Forms](https://web3forms.com/) | – | Kontaktformular-Backend |
+| [Netlify](https://www.netlify.com/) | – | Hosting & Deployment |
 
 **Node.js Version:** >=22.12.0 (laut `package.json` engines). `netlify.toml` setzt `NODE_VERSION = "22"`.
 
@@ -33,25 +34,25 @@ Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**
 ├── src/
 │   ├── components/           # Wiederverwendbare Astro-Komponenten
 │   │   ├── BaseHead.astro    # SEO, Meta-Tags, Schema.org JSON-LD
-│   │   ├── CookieBanner.astro # DSGVO-konformes Cookie-Banner
+│   │   ├── CookieBanner.astro # DSGVO-konformes Cookie-Banner (localStorage)
 │   │   ├── Footer.astro      # 3-Spalten Footer mit Kontaktdaten
 │   │   ├── Header.astro      # Sticky Header + Mobile Navigation
-│   │   └── WhatsAppButton.astro # Sticky WhatsApp-Button
+│   │   └── WhatsAppButton.astro # Sticky WhatsApp-Button (wa.me)
 │   ├── layouts/
 │   │   └── BaseLayout.astro  # Hauptlayout mit Skip-Link, Header, Footer, CookieBanner, WhatsAppButton
 │   ├── pages/                # Astro-Seiten (File-based Routing)
 │   │   ├── index.astro       # Startseite (Hero, Services, Trust-Bar, Prozess, Testimonials, CTA)
-│   │   ├── leistungen.astro  # Detaillierte Service-Beschreibungen
-│   │   ├── referenzen.astro  # Vorher-Nachher-Vergleiche (interaktive Slider)
-│   │   ├── ueber-uns.astro   # Über uns mit Portrait und Unternehmensdaten
-│   │   ├── kontakt.astro     # Kontakt + Web3Forms-Formular + Google Maps
+│   │   ├── leistungen.astro  # Detaillierte Service-Beschreibungen (5 Leistungen, alternierendes Layout)
+│   │   ├── referenzen.astro  # 7 Vorher-Nachher-Vergleiche (interaktive Slider)
+│   │   ├── ueber-uns.astro   # Über uns mit Portrait, Werte, Unternehmensdaten
+│   │   ├── kontakt.astro     # Kontakt + Web3Forms-Formular + Google Maps iFrame
 │   │   ├── impressum.astro   # Impressum (Pflichtseite)
 │   │   ├── datenschutz.astro # Datenschutzerklärung (Pflichtseite)
-│   │   └── 404.astro         # 404 Fehlerseite
+│   │   └── 404.astro         # 404 Fehlerseite (noindex)
 │   ├── styles/
-│   │   └── global.css        # CSS-Variablen, Base Styles, Utility Classes
+│   │   └── global.css        # Tailwind-Import, CSS-Variablen, Base Styles, Utility-Klassen
 │   └── assets/
-│       └── images/           # 29 Bilddateien (JPEG/JPG) für die gesamte Website
+│       └── images/           # 34 Bilddateien (JPEG/JPG) für die gesamte Website
 ├── public/
 │   ├── fonts/                # Lokale Schriftarten (falls vorhanden)
 │   ├── images/               # Statische Bilder (OG-Image)
@@ -157,11 +158,11 @@ PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
 
 ### Typografie
 
-- **Font:** Inter (400, 500, 600, 700) - lokal via @fontsource
+- **Font:** Inter (400, 500, 600, 700) – lokal via `@fontsource/inter`
 - **Base Size:** 16px
 - **Line Height:** 1.6
 
-### Komponenten-Klassen
+### Komponenten-Klassen (in `global.css`)
 
 ```css
 .btn           /* Basis-Button */
@@ -211,24 +212,26 @@ const items = [...];
   {items.map(item => <span>{item}</span>)}
 </div>
 
-<!-- 6. Scoped Styles -->
+<!-- 6. Scoped Styles (sehr stark genutzt im Projekt) -->
 <style>
   .component { ... }
 </style>
 
 <!-- 7. Client-Side Scripts (optional) -->
 <script>
-  // Vanilla JS, modularer IIFE-Style
+  // Vanilla JS, modularer IIFE-Style; teilweise mit TypeScript-Annotationen
   (function() { ... })();
 </script>
 ```
+
+**Architektur-Hinweis:** Das Projekt verwendet primär **scoped `<style>`-Blöcke** innerhalb der Astro-Dateien anstelle von Tailwind-Utility-Klassen im HTML. Tailwind wird in `global.css` importiert (`@import "tailwindcss";`), dient aber hauptsächlich als Reset- und Design-System-Grundlage. Jede Seite und Komponente definiert ihre eigenen semantischen CSS-Klassen.
 
 ### Bildverwendung
 
 - Astro's `<Image />`-Komponente wird für alle Bilder verwendet (`import { Image } from 'astro:assets'`)
 - Bilder werden aus `src/assets/images/` importiert
 - Attribute wie `width`, `height`, `alt` sind Pflicht
-- Das `public/`-Verzeichnis enthält nur statische Assets wie Favicon
+- Das `public/`-Verzeichnis enthält nur statische Assets wie Favicon, OG-Image, `robots.txt`, `sitemap.xml`
 
 ### Accessibility (A11y) Standards
 
@@ -238,6 +241,7 @@ const items = [...];
 - **Focus-Styles:** Sichtbarer Focus-Ring (`*:focus-visible`)
 - **Alt-Texte:** Bei allen Bildern Pflicht
 - **Kontrast:** WCAG AA konforme Farbkontraste
+- **Reduced Motion:** `@media (prefers-reduced-motion: reduce)` wird in `global.css` berücksichtigt
 
 ### Performance-Optimierungen
 
@@ -253,10 +257,10 @@ const items = [...];
 
 | Seite | URL | Beschreibung |
 |-------|-----|--------------|
-| Startseite | `/` | Hero, Services-Teaser, Trust-Bar, 3-Schritte-Prozess, Testimonials, CTA |
-| Leistungen | `/leistungen` | Detaillierte Service-Beschreibungen (Trockenbau, Boden, Maler, Renovierung, Hausmeister) mit alternierendem Layout |
-| Referenzen | `/referenzen` | 6 interaktive Vorher-Nachher-Vergleiche mit Slider-Funktion |
-| Über uns | `/ueber-uns` | Unternehmensinfos, Portrait von Halil Zeka, Werte, Firmendaten |
+| Startseite | `/` | Hero, Services-Teaser (5 Karten), Trust-Bar, 3-Schritte-Prozess, 3 Testimonials, CTA |
+| Leistungen | `/leistungen` | 5 Dienstleistungen mit alternierendem Bild/Text-Layout und Feature-Listen |
+| Referenzen | `/referenzen` | 7 interaktive Vorher-Nachher-Vergleiche mit Slider-Funktion |
+| Über uns | `/ueber-uns` | Unternehmensinfos, Portrait von Halil Zeka, 4 Werte-Karten, Firmendaten |
 | Kontakt | `/kontakt` | Web3Forms-Formular + Kontaktdaten + Google Maps iFrame |
 | Impressum | `/impressum` | Rechtliches (Pflicht) |
 | Datenschutz | `/datenschutz` | DSGVO-Text (Pflicht) |
@@ -353,11 +357,12 @@ Alle Seiten haben vollständige OG-Tags für Social Sharing:
 
 ### Interaktive Vorher-Nachher-Slider (`referenzen.astro`)
 
-- 6 Projekte mit je einem "Before/After"-Vergleich
+- 7 Projekte mit je einem "Before/After"-Vergleich
 - Interaktiver Slider per Maus/Touch
 - CSS `clip-path` für das Überblenden
 - Intersection Observer für Fade-in-Animationen
 - Vanilla-JavaScript in IIFE innerhalb der Seite
+- Jedes Bild-Paar: `vor{n}.jpeg` / `nach{n}.jpeg` (n = 1–7)
 
 ### Kontaktformular (`kontakt.astro`)
 
@@ -367,6 +372,7 @@ Alle Seiten haben vollständige OG-Tags für Social Sharing:
 - Fetch-basierte Formularübertragung für inline Erfolgs-/Fehlermeldungen
 - Ladezustand am Submit-Button
 - Erfolgsmeldung bei `?success=true` URL-Parameter (Legacy-Support)
+- Google Maps iFrame mit Standort Siegen
 
 ### Mobile Navigation (`Header.astro`)
 

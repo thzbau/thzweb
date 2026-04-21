@@ -29,13 +29,12 @@ const currentPath = Astro.url.pathname;
 
       <!-- Desktop Navigation -->
       <div class="nav-desktop">
-        <ul class="nav-list" role="menubar">
+        <ul class="nav-list">
           {navItems.map((item) => (
-            <li class="nav-item" role="none">
+            <li class="nav-item">
               <a
                 href={item.href}
-                class={`nav-link ${currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href)) ? 'active' : ''}`}
-                role="menuitem"
+                class={`nav-link ${currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href + '/')) || currentPath === item.href + '/' ? 'active' : ''}`}
                 aria-current={currentPath === item.href ? 'page' : undefined}
               >
                 {item.label}
@@ -338,13 +337,14 @@ const currentPath = Astro.url.pathname;
 
     function toggleMenu() {
       const isExpanded = menuToggle?.getAttribute('aria-expanded') === 'true';
-      menuToggle?.setAttribute('aria-expanded', String(!isExpanded));
-      mobileMenu?.classList.toggle('active', !isExpanded);
-      mobileOverlay?.classList.toggle('active', !isExpanded);
-      document.body.style.overflow = !isExpanded ? 'hidden' : '';
+      const willOpen = !isExpanded;
+      menuToggle?.setAttribute('aria-expanded', String(willOpen));
+      menuToggle?.setAttribute('aria-label', willOpen ? 'Menü schließen' : 'Menü öffnen');
+      mobileMenu?.classList.toggle('active', willOpen);
+      mobileOverlay?.classList.toggle('active', willOpen);
+      document.body.style.overflow = willOpen ? 'hidden' : '';
 
-      if (!isExpanded) {
-        // Move focus to first mobile nav link when opening
+      if (willOpen) {
         setTimeout(() => {
           mobileMenu?.querySelector('a')?.focus();
         }, 50);
@@ -353,6 +353,7 @@ const currentPath = Astro.url.pathname;
 
     function closeMenu() {
       menuToggle?.setAttribute('aria-expanded', 'false');
+      menuToggle?.setAttribute('aria-label', 'Menü öffnen');
       mobileMenu?.classList.remove('active');
       mobileOverlay?.classList.remove('active');
       document.body.style.overflow = '';

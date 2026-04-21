@@ -18,10 +18,6 @@ const {
   noindex = false,
 } = Astro.props;
 
-// Normalize canonical URL to strip query parameters and hash
-const rawCanonical = canonicalURL instanceof URL ? canonicalURL : new URL(canonicalURL, company.url);
-const normalizedCanonical = `${rawCanonical.origin}${rawCanonical.pathname}`;
-
 // Company Data (Strict Facts)
 const company = {
   name: 'THZ Innenrenovierung-Hausmeisterdienste',
@@ -31,6 +27,10 @@ const company = {
   email: 'Info@thz-renovierung.de',
   url: 'https://thz-renovierung.de',
 };
+
+// Normalize canonical URL to strip query parameters and hash
+const rawCanonical = canonicalURL instanceof URL ? canonicalURL : new URL(canonicalURL, company.url);
+const normalizedCanonical = `${rawCanonical.origin}${rawCanonical.pathname}`;
 
 // Schema.org LocalBusiness JSON-LD
 const schemaLocalBusiness = {
@@ -79,11 +79,6 @@ const schemaWebSite = {
   '@type': 'WebSite',
   name: company.name,
   url: company.url,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${company.url}/suche?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
 };
 ---
 
@@ -110,6 +105,7 @@ const schemaWebSite = {
 <meta property="og:image" content={new URL(image, company.url)} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="THZ Innenrenovierung - Professionelle Renovierungsarbeiten in Siegen" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -124,6 +120,9 @@ const schemaWebSite = {
 
 <!-- Theme Color -->
 <meta name="theme-color" content="#004252" />
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/site.webmanifest" />
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json" set:html={JSON.stringify(schemaLocalBusiness)} />

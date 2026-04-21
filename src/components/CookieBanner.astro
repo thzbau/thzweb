@@ -36,11 +36,13 @@
     z-index: 9999;
     padding: var(--spacing-lg);
     transform: translateY(100%);
-    transition: transform var(--transition-base);
+    visibility: hidden;
+    transition: transform var(--transition-base), visibility var(--transition-base);
   }
 
   .cookie-banner.active {
     transform: translateY(0);
+    visibility: visible;
   }
 
   .cookie-banner-content {
@@ -114,7 +116,7 @@
       }
     }
 
-    function setConsent(value: 'accepted' | 'declined') {
+    function setConsent(value) {
       try {
         localStorage.setItem(COOKIE_CONSENT_KEY, value);
       } catch (e) {
@@ -124,20 +126,45 @@
 
     function hideBanner() {
       banner?.classList.remove('active');
+      banner?.setAttribute('aria-hidden', 'true');
+      document.body.focus();
     }
 
     function showBanner() {
-      // Small delay to not block initial page render
       setTimeout(() => {
         banner?.classList.add('active');
+        banner?.removeAttribute('aria-hidden');
+        acceptBtn?.focus();
       }, 1000);
+    }
+
+    function handleKeydown(e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setConsent('declined');
+        hideBanner();
+        return;
+      }
+      if (e.key === 'Tab' && banner?.classList.contains('active')) {
+        const focusables = [acceptBtn, declineBtn].filter(Boolean);
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
     }
 
     function init() {
       const consent = getConsent();
-      
       if (!consent) {
         showBanner();
+      } else {
+        banner?.setAttribute('aria-hidden', 'true');
       }
     }
 
@@ -151,7 +178,8 @@
       hideBanner();
     });
 
-    // Initialize when DOM is ready
+    document.addEventListener('keydown', handleKeydown);
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {

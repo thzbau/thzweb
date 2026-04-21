@@ -1,0 +1,13 @@
+{
+  "name": "THZ Innenrenovierung-Hausmeisterdienste",
+  "short_name": "THZ Renovierung",
+  "description": "Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten in Siegen.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#004252",
+  "icons": [
+    { "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
