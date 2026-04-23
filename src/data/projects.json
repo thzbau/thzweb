@@ -1,0 +1,48 @@
+{
+  "title": "Unsere Referenzen",
+  "subtitle": "Qualität, die Sie sehen können. Ziehen Sie den Regler und überzeugen Sie sich selbst.",
+  "projects": [
+    {
+      "before": "/images/cms/vor1.jpeg",
+      "after": "/images/cms/nach1.jpeg",
+      "altBefore": "Referenzprojekt 1 - Vorher",
+      "altAfter": "Referenzprojekt 1 - Nachher"
+    },
+    {
+      "before": "/images/cms/vor2.jpeg",
+      "after": "/images/cms/nach2.jpeg",
+      "altBefore": "Referenzprojekt 2 - Vorher",
+      "altAfter": "Referenzprojekt 2 - Nachher"
+    },
+    {
+      "before": "/images/cms/vor3.jpeg",
+      "after": "/images/cms/nach3.jpeg",
+      "altBefore": "Referenzprojekt 3 - Vorher",
+      "altAfter": "Referenzprojekt 3 - Nachher"
+    },
+    {
+      "before": "/images/cms/vor4.jpeg",
+      "after": "/images/cms/nach4.jpeg",
+      "altBefore": "Referenzprojekt 4 - Vorher",
+      "altAfter": "Referenzprojekt 4 - Nachher"
+    },
+    {
+      "before": "/images/cms/vor5.jpeg",
+      "after": "/images/cms/nach5.jpeg",
+      "altBefore": "Referenzprojekt 5 - Vorher",
+      "altAfter": "Referenzprojekt 5 - Nachher"
+    },
+    {
+      "before": "/images/cms/vor6.jpeg",
+      "after": "/images/cms/nach6.jpeg",
+      "altBefore": "Referenzprojekt 6 - Vorher",
+      "altAfter": "Referenzprojekt 6 - Nachher"
+    },
+    {
+      "before": "/images/cms/vor7.jpeg",
+      "after": "/images/cms/nach7.jpeg",
+      "altBefore": "Referenzprojekt 7 - Vorher",
+      "altAfter": "Referenzprojekt 7 - Nachher"
+    }
+  ]
+}

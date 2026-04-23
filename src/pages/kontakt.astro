@@ -1,20 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import kontaktData from '../data/pages/kontakt.json';
+import globalData from '../data/global.json';
 
 // Get Web3Forms key from environment
 const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HERE';
+
+const { meta, hero, form, contactInfo } = kontaktData;
+const { company, openingHours } = globalData;
 ---
 
 <BaseLayout
-  title="Kontakt | THZ Innenrenovierung-Hausmeisterdienste Siegen"
-  description="Kontaktieren Sie THZ Innenrenovierung für ein unverbindliches Angebot. Tel: 0155 1169 3355 | Email: Info@thz-renovierung.de | Adresse: Roster str 66, 57074 Siegen"
+  title={meta.title}
+  description={meta.description}
 >
   <!-- Hero -->
   <section class="page-hero" aria-labelledby="page-title">
     <div class="container">
-      <h1 id="page-title" class="page-title">Kontakt</h1>
+      <h1 id="page-title" class="page-title">{hero.title}</h1>
       <p class="page-subtitle">
-        Rufen Sie uns an, schreiben Sie uns – wir beraten Sie gerne unverbindlich.
+        {hero.subtitle}
       </p>
     </div>
   </section>
@@ -27,9 +32,9 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
       <div class="contact-grid">
         <!-- Contact Form -->
         <div class="contact-form-wrapper">
-          <h3 class="form-title">Schreiben Sie uns</h3>
+          <h3 class="form-title">{form.title}</h3>
           <p class="form-subtitle">
-            Füllen Sie das Formular aus – wir melden uns schnellstmöglich bei Ihnen.
+            {form.subtitle}
           </p>
           
           <form 
@@ -57,46 +62,46 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
             
             <div class="form-group">
               <label for="name" class="form-label">
-                Name <span class="required" aria-label="Pflichtfeld">*</span>
+                {form.fields.name.label} <span class="required" aria-label="Pflichtfeld">*</span>
               </label>
               <input 
                 type="text" 
                 id="name" 
                 name="name" 
                 class="form-input"
-                placeholder="Ihr vollständiger Name"
+                placeholder={form.fields.name.placeholder}
                 required
                 minlength="2"
                 autocomplete="name"
               />
-              <span class="error-message" id="name-error">Bitte geben Sie Ihren Namen ein.</span>
+              <span class="error-message" id="name-error">{form.fields.name.error}</span>
             </div>
             
             <div class="form-row">
               <div class="form-group">
                 <label for="email" class="form-label">
-                  E-Mail <span class="required" aria-label="Pflichtfeld">*</span>
+                  {form.fields.email.label} <span class="required" aria-label="Pflichtfeld">*</span>
                 </label>
                 <input 
                   type="email" 
                   id="email" 
                   name="email" 
                   class="form-input"
-                  placeholder="ihre@email.de"
+                  placeholder={form.fields.email.placeholder}
                   required
                   autocomplete="email"
                 />
-                <span class="error-message" id="email-error">Bitte geben Sie eine gültige E-Mail-Adresse ein.</span>
+                <span class="error-message" id="email-error">{form.fields.email.error}</span>
               </div>
               
               <div class="form-group">
-                <label for="phone" class="form-label">Telefon</label>
+                <label for="phone" class="form-label">{form.fields.phone.label}</label>
                 <input 
                   type="tel" 
                   id="phone" 
                   name="phone" 
                   class="form-input"
-                  placeholder="Ihre Telefonnummer"
+                  placeholder={form.fields.phone.placeholder}
                   autocomplete="tel"
                 />
               </div>
@@ -104,18 +109,18 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
             
             <div class="form-group">
               <label for="message" class="form-label">
-                Nachricht <span class="required" aria-label="Pflichtfeld">*</span>
+                {form.fields.message.label} <span class="required" aria-label="Pflichtfeld">*</span>
               </label>
               <textarea 
                 id="message" 
                 name="message" 
                 class="form-textarea"
-                placeholder="Beschreiben Sie Ihr Projekt..."
+                placeholder={form.fields.message.placeholder}
                 rows="5"
                 required
                 minlength="10"
               ></textarea>
-              <span class="error-message" id="message-error">Bitte beschreiben Sie Ihr Anliegen (mindestens 10 Zeichen).</span>
+              <span class="error-message" id="message-error">{form.fields.message.error}</span>
             </div>
             
             <div class="form-group form-consent">
@@ -126,11 +131,10 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
                   class="checkbox-input"
                   required
                 />
-                <span class="checkbox-text">
-                  Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. <span class="required">*</span>
-                </span>
+                <span class="checkbox-text" set:html={form.fields.privacy.text} />
+                <span class="required">*</span>
               </label>
-              <span class="error-message" id="privacy-error">Bitte akzeptieren Sie die Datenschutzerklärung.</span>
+              <span class="error-message" id="privacy-error">{form.fields.privacy.error}</span>
             </div>
             
             <button type="submit" class="btn btn-primary btn-submit">
@@ -138,7 +142,7 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
                 <path d="m22 2-7 20-4-9-9-4Z"/>
                 <path d="M22 2 11 13"/>
               </svg>
-              Nachricht senden
+              {form.submitLabel}
             </button>
             
             <!-- Success Message (hidden by default) -->
@@ -147,8 +151,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
                 <circle cx="12" cy="12" r="10"/>
                 <path d="m9 12 2 2 4-4"/>
               </svg>
-              <h4>Vielen Dank!</h4>
-              <p>Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns schnellstmöglich bei Ihnen.</p>
+              <h4>{form.success.title}</h4>
+              <p>{form.success.message}</p>
             </div>
 
             <!-- Error Message (hidden by default) -->
@@ -158,29 +162,29 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
                 <line x1="12" x2="12" y1="8" y2="12"/>
                 <line x1="12" x2="12.01" y1="16" y2="16"/>
               </svg>
-              <p>Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns direkt an.</p>
+              <p>{form.error.message}</p>
             </div>
           </form>
         </div>
         
         <!-- Contact Info -->
         <div class="contact-info">
-          <h3 class="info-title">Direkter Kontakt</h3>
+          <h3 class="info-title">{contactInfo.title}</h3>
           
           <div class="info-cards">
-            <a href="tel:015511693355" class="info-card">
+            <a href={`tel:${company.phone.replace(/\s/g, '')}`} class="info-card">
               <div class="info-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
               </div>
               <div class="info-content">
-                <span class="info-label">Telefon</span>
-                <span class="info-value">0155 1169 3355</span>
+                <span class="info-label">{contactInfo.phoneLabel}</span>
+                <span class="info-value">{company.phone}</span>
               </div>
             </a>
             
-            <a href="mailto:Info@thz-renovierung.de" class="info-card">
+            <a href={`mailto:${company.email}`} class="info-card">
               <div class="info-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect width="20" height="16" x="2" y="4" rx="2"/>
@@ -188,8 +192,8 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
                 </svg>
               </div>
               <div class="info-content">
-                <span class="info-label">E-Mail</span>
-                <span class="info-value">Info@thz-renovierung.de</span>
+                <span class="info-label">{contactInfo.emailLabel}</span>
+                <span class="info-value">{company.email}</span>
               </div>
             </a>
             
@@ -201,11 +205,10 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
                 </svg>
               </div>
               <div class="info-content">
-                <span class="info-label">Adresse</span>
+                <span class="info-label">{contactInfo.addressLabel}</span>
                 <address class="info-value">
-                  THZ Innenrenovierung<br />
-                  Roster str 66<br />
-                  57074 Siegen
+                  {company.name}<br />
+                  {company.address.replace(', ', '<br />')}
                 </address>
               </div>
             </div>
@@ -218,10 +221,10 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
                 </svg>
               </div>
               <div class="info-content">
-                <span class="info-label">Erreichbarkeit</span>
+                <span class="info-label">{contactInfo.availabilityLabel}</span>
                 <span class="info-value">
-                  Mo–Fr: 08:00–18:00 Uhr<br />
-                  Sa: Nach Vereinbarung
+                  {openingHours.weekdays}<br />
+                  {openingHours.saturday}
                 </span>
               </div>
             </div>
@@ -230,14 +233,14 @@ const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HE
           <!-- Google Maps -->
           <div class="map-wrapper">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.0!2d8.0156!3d50.8756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRoster+Str.+66%2C+57074+Siegen!5e0!3m2!1sde!2sde!4v1234567890"
+              src={contactInfo.mapEmbedUrl}
               width="100%" 
               height="300" 
               style="border:0; border-radius: var(--radius-lg);" 
               allowfullscreen="" 
               loading="lazy" 
               referrerpolicy="no-referrer-when-downgrade"
-              title="THZ Innenrenovierung Standort - Roster str 66, 57074 Siegen"
+              title={`${company.name} Standort - ${company.address}`}
             ></iframe>
           </div>
         </div>

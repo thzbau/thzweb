@@ -1,5 +1,7 @@
 ---
 // BaseHead.astro - SEO & Meta Management
+import globalData from '../data/global.json';
+
 interface Props {
   title?: string;
   description?: string;
@@ -10,23 +12,15 @@ interface Props {
 }
 
 const {
-  title = 'THZ Innenrenovierung-Hausmeisterdienste | Ihr Handwerker in Siegen',
-  description = 'THZ Innenrenovierung: Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten in Siegen & Umgebung. Unverbindliches Angebot anfordern!',
-  image = '/images/og-image.jpg',
+  title = `${globalData.company.name} | Ihr Handwerker in Siegen`,
+  description = `${globalData.company.name}: Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten in Siegen & Umgebung. Unverbindliches Angebot anfordern!`,
+  image = globalData.ogImage,
   type = 'website',
   canonicalURL = Astro.url,
   noindex = false,
 } = Astro.props;
 
-// Company Data (Strict Facts)
-const company = {
-  name: 'THZ Innenrenovierung-Hausmeisterdienste',
-  owner: 'Halil Zeka',
-  address: 'Roster str 66, 57074 Siegen',
-  phone: '015511693355',
-  email: 'Info@thz-renovierung.de',
-  url: 'https://thz-renovierung.de',
-};
+const company = globalData.company;
 
 // Normalize canonical URL to strip query parameters and hash
 const rawCanonical = canonicalURL instanceof URL ? canonicalURL : new URL(canonicalURL, company.url);
@@ -39,7 +33,7 @@ const schemaLocalBusiness = {
   name: company.name,
   description: description,
   url: company.url,
-  telephone: company.phone,
+  telephone: company.phone.replace(/\s/g, ''),
   email: company.email,
   address: {
     '@type': 'PostalAddress',
@@ -50,8 +44,8 @@ const schemaLocalBusiness = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: '50.8756',
-    longitude: '8.0160',
+    latitude: globalData.schema.latitude,
+    longitude: globalData.schema.longitude,
   },
   founder: {
     '@type': 'Person',
@@ -61,7 +55,7 @@ const schemaLocalBusiness = {
     '@type': 'City',
     name: 'Siegen',
   },
-  priceRange: '€€',
+  priceRange: globalData.schema.priceRange,
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -105,7 +99,7 @@ const schemaWebSite = {
 <meta property="og:image" content={new URL(image, company.url)} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="THZ Innenrenovierung - Professionelle Renovierungsarbeiten in Siegen" />
+<meta property="og:image:alt" content={`${company.name} - Professionelle Renovierungsarbeiten in Siegen`} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />

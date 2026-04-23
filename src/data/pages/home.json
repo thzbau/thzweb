@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "title": "THZ Innenrenovierung-Hausmeisterdienste | Ihr Handwerker in Siegen",
+    "description": "Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten, Innenrenovierung und Hausmeisterdienste in Siegen & Umgebung. Sauber, schnell und professionell."
+  },
+  "hero": {
+    "title": "Ihre Experten für <span class=\"text-accent\">Innenrenovierung & Hausmeisterdienste</span> in Siegen & Umgebung",
+    "subtitle": "THZ Innenrenovierung-Hausmeisterdienste: Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten, Innenrenovierung und Hausmeisterdienste. Sauber, schnell und professionell.",
+    "image": "/images/cms/hero.jpg",
+    "imageAlt": "Professionelle Renovierungsarbeiten von THZ Innenrenovierung",
+    "buttons": [
+      {
+        "label": "Kostenloses Angebot",
+        "href": "/kontakt",
+        "variant": "primary",
+        "icon": "phone"
+      },
+      {
+        "label": "Unsere Leistungen",
+        "href": "/leistungen",
+        "variant": "outline",
+        "icon": "arrow"
+      }
+    ]
+  },
+  "trustBar": {
+    "points": [
+      "Pünktliche Termineinhaltung",
+      "Saubere Baustelle garantiert",
+      "Transparente Festpreise",
+      "Fachgerechte Ausführung"
+    ]
+  },
+  "servicesSection": {
+    "title": "Unsere Leistungen",
+    "subtitle": "Von Trockenbau bis zur Komplettrenovierung – wir sind Ihr kompetenter Partner.",
+    "linkLabel": "Mehr erfahren",
+    "linkHref": "/leistungen"
+  },
+  "processSection": {
+    "title": "In 3 Schritten zu Ihrem neuen Raum",
+    "subtitle": "Unkompliziert und transparent – so arbeiten wir.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Kontaktaufnahme",
+        "description": "Rufen Sie uns an oder schreiben Sie uns – wir sind für Sie da."
+      },
+      {
+        "step": "02",
+        "title": "Besichtigung & Angebot",
+        "description": "Wir besichtigen Ihr Objekt und erstellen Ihnen ein kostenloses Angebot."
+      },
+      {
+        "step": "03",
+        "title": "Professionelle Umsetzung",
+        "description": "Saubere, termingerechte Ausführung Ihres Projekts."
+      }
+    ]
+  },
+  "testimonialsSection": {
+    "title": "Das sagen unsere Kunden",
+    "subtitle": "Echte Bewertungen von zufriedenen Kunden",
+    "testimonials": [
+      {
+        "name": "Martina S.",
+        "location": "Siegen",
+        "text": "Herr Zeka hat unsere Küche komplett renoviert. Pünktlich, sauber und das Ergebnis ist top! Absolut empfehlenswert.",
+        "rating": 5
+      },
+      {
+        "name": "Michael K.",
+        "location": "Kreuztal",
+        "text": "Sehr zuverlässiger Handwerker. Der Boden wurde perfekt verlegt und die Preise sind fair. Gerne wieder!",
+        "rating": 5
+      },
+      {
+        "name": "Familie Weber",
+        "location": "Wilnsdorf",
+        "text": "Von der Beratung bis zur Umsetzung alles perfekt. Wir sind begeistert von der Qualität und Sauberkeit!",
+        "rating": 5
+      }
+    ]
+  },
+  "bottomCta": {
+    "title": "Bereit für Ihr Projekt?",
+    "text": "Rufen Sie uns an oder schreiben Sie uns – wir beraten Sie gerne unverbindlich.",
+    "buttons": [
+      {
+        "label": "0155 1169 3355",
+        "href": "tel:015511693355",
+        "variant": "primary",
+        "icon": "phone"
+      },
+      {
+        "label": "Kontaktformular",
+        "href": "/kontakt",
+        "variant": "secondary"
+      }
+    ]
+  }
+}

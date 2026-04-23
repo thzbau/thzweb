@@ -1,42 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import portraitImage from '../assets/images/ueberuns.jpg';
+import ueberUnsData from '../data/pages/ueber-uns.json';
+import globalData from '../data/global.json';
 
-const values = [
-  {
-    title: 'Handwerkerehre',
-    description: 'Stolz auf jedes abgeschlossene Projekt und zufriedene Kunden.',
-    icon: 'award',
-  },
-  {
-    title: 'Pünktlichkeit',
-    description: 'Wir halten unsere Termine ein – Zuverlässigkeit ist unsere Stärke.',
-    icon: 'clock',
-  },
-  {
-    title: 'Sauberkeit',
-    description: 'Eine saubere Baustelle ist selbstverständlich für uns.',
-    icon: 'shield',
-  },
-  {
-    title: 'Qualität',
-    description: 'Hochwertige Materialien und präzise Ausführung garantieren Langlebigkeit.',
-    icon: 'thumbs',
-  },
-];
+const { meta, hero, about, valuesSection, companyData } = ueberUnsData;
 ---
 
 <BaseLayout
-  title="Über uns | THZ Innenrenovierung-Hausmeisterdienste Siegen"
-  description="Lernen Sie THZ Innenrenovierung kennen. Inhaber Halil Zeka und sein Team stehen für Qualität, Zuverlässigkeit und saubere Arbeit in Siegen & Umgebung."
+  title={meta.title}
+  description={meta.description}
 >
   <!-- Hero -->
   <section class="page-hero" aria-labelledby="page-title">
     <div class="container">
-      <h1 id="page-title" class="page-title">Über THZ Innenrenovierung</h1>
+      <h1 id="page-title" class="page-title">{hero.title}</h1>
       <p class="page-subtitle">
-        Ihr zuverlässiger Handwerkspartner in Siegen und Umgebung
+        {hero.subtitle}
       </p>
     </div>
   </section>
@@ -46,9 +25,9 @@ const values = [
     <div class="container">
       <div class="about-grid">
         <div class="about-image">
-          <Image 
-            src={portraitImage} 
-            alt="Halil Zeka - Inhaber von THZ Innenrenovierung"
+          <img 
+            src={about.image} 
+            alt={about.imageAlt}
             class="portrait-img"
             width={400}
             height={500}
@@ -56,36 +35,24 @@ const values = [
         </div>
         
         <div class="about-content">
-          <h2 id="about-title" class="about-title">Persönlich. Professionell. Zuverlässig.</h2>
+          <h2 id="about-title" class="about-title">{about.title}</h2>
           
           <div class="about-text">
-            <p>
-              THZ Innenrenovierung-Hausmeisterdienste steht für handwerkliche Qualität und 
-              zuverlässige Dienstleistung. Als Einzelunternehmen mit Sitz in Siegen betreue ich 
-              jedes Projekt persönlich – von der ersten Beratung bis zur finalen Übergabe.
-            </p>
-            
-            <p>
-              Mein Name ist <strong>Halil Zeka</strong> und ich bin Ihr Ansprechpartner für alle 
-              Arbeiten rund um Trockenbau, Bodenverlegung, Maler- und Tapezierarbeiten sowie 
-              Renovierungen aller Art. Mit jahrelanger Erfahrung im Handwerk weiß ich, worauf es ankommt:
-            </p>
+            {about.paragraphs.map((paragraph, index) => (
+              <p set:html={paragraph} />
+            ))}
             
             <ul class="about-list">
-              <li>Pünktliche und termingerechte Umsetzung</li>
-              <li>Saubere Arbeitsweise vor Ort</li>
-              <li>Transparente Kommunikation und faire Preise</li>
-              <li>Qualität, die Sie überzeugt</li>
+              {about.listItems.map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
             
-            <p>
-              Egal ob kleine Reparatur oder umfassende Renovierung – ich bringe 
-              Engagement und Fachwissen in jedes Projekt ein. Ihre Zufriedenheit ist mein größter Erfolg.
-            </p>
+            <p set:html={about.paragraphs[about.paragraphs.length - 1]} />
           </div>
           
-          <a href="/kontakt" class="btn btn-primary">
-            Kontakt aufnehmen
+          <a href={about.buttonHref} class="btn btn-primary">
+            {about.buttonLabel}
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14"/>
               <path d="m12 5 7 7-7 7"/>
@@ -100,12 +67,12 @@ const values = [
   <section class="values-section section" aria-labelledby="values-title">
     <div class="container">
       <div class="section-header">
-        <h2 id="values-title" class="section-title">Unsere Werte</h2>
-        <p class="section-subtitle">Das macht THZ Innenrenovierung aus</p>
+        <h2 id="values-title" class="section-title">{valuesSection.title}</h2>
+        <p class="section-subtitle">{valuesSection.subtitle}</p>
       </div>
       
       <div class="values-grid">
-        {values.map((value) => (
+        {valuesSection.values.map((value) => (
           <article class="value-card">
             <div class="value-icon">
               {value.icon === 'award' && (
@@ -146,24 +113,14 @@ const values = [
       <h2 id="company-title" class="sr-only">Unternehmensdaten</h2>
       
       <div class="data-card">
-        <h3 class="data-title">Unternehmensdaten</h3>
+        <h3 class="data-title">{companyData.title}</h3>
         <dl class="data-list">
-          <div class="data-row">
-            <dt>Firmenname:</dt>
-            <dd>THZ Innenrenovierung-Hausmeisterdienste</dd>
-          </div>
-          <div class="data-row">
-            <dt>Inhaber:</dt>
-            <dd>Halil Zeka</dd>
-          </div>
-          <div class="data-row">
-            <dt>Adresse:</dt>
-            <dd>Roster str 66, 57074 Siegen</dd>
-          </div>
-          <div class="data-row">
-            <dt>Rechtsform:</dt>
-            <dd>Einzelunternehmen</dd>
-          </div>
+          {companyData.items.map((item) => (
+            <div class="data-row">
+              <dt>{item.label}:</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
         </dl>
       </div>
     </div>

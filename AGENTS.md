@@ -22,6 +22,9 @@ Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**
 | [@fontsource/inter](https://fontsource.org/fonts/inter) | ^5.2.8 | Lokale Schriftart (400/500/600/700) |
 | [Web3Forms](https://web3forms.com/) | – | Kontaktformular-Backend |
 | [Netlify](https://www.netlify.com/) | – | Hosting & Deployment |
+| [Decap CMS](https://decapcms.org/) | ^3.0.0 | Git-based CMS für Content-Management |
+| [Netlify Identity](https://docs.netlify.com/visitor-access/identity/) | – | Authentifizierung für CMS |
+| [Netlify Git Gateway](https://docs.netlify.com/visitor-access/git-gateway/) | – | Git-Zugriff für CMS |
 
 **Node.js Version:** >=22.12.0 (laut `package.json` engines). `netlify.toml` setzt `NODE_VERSION = "22"`.
 
@@ -54,12 +57,13 @@ Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**
 │   └── assets/
 │       └── images/           # 34 Bilddateien (JPEG/JPG) für die gesamte Website
 ├── public/
-│   ├── fonts/                # Lokale Schriftarten (falls vorhanden)
+│   ├── fonts/                # Lokale Schriftarten (leer; Schriften via @fontsource)
 │   ├── images/               # Statische Bilder (OG-Image)
 │   ├── favicon.ico
 │   ├── favicon.svg
 │   ├── apple-touch-icon.png
 │   ├── robots.txt
+│   ├── site.webmanifest
 │   └── sitemap.xml
 ├── netlify.toml              # Netlify Config (Build, Security Headers, Redirects, Caching)
 ├── astro.config.mjs          # Astro Konfiguration
@@ -121,6 +125,8 @@ npm run astro [command]
 | `@assets/*` | `src/assets/*` |
 | `@styles/*` | `src/styles/*` |
 
+**Hinweis:** Die Aliasse sind konfiguriert, werden im bestehenden Code jedoch kaum genutzt. Die meisten Komponenten verwenden relative Imports (z. B. `../components/Header.astro`).
+
 ### Umgebungsvariablen
 
 Kopiere `.env.example` nach `.env` und konfiguriere:
@@ -154,7 +160,18 @@ PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
 | `--color-gray-50` bis `--color-gray-900` | Graustufen | UI-Elemente, Text-Hierarchie |
 | `--color-text-primary` | `--color-gray-900` | Haupttext |
 | `--color-text-secondary` | `--color-gray-600` | Sekundärer Text |
+| `--color-text-muted` | `--color-gray-500` | Platzhaltertext |
+| `--color-bg-primary` | `--color-white` | Hintergrund |
+| `--color-bg-secondary` | `--color-gray-50` | Sekundärer Hintergrund |
+| `--color-bg-dark` | `--color-primary` | Dunkler Hintergrund |
 | `--color-border` | `--color-gray-200` | Rahmen, Trennlinien |
+
+### Schatten, Abstände & Transitionen
+
+- **Shadows:** `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl`
+- **Spacing:** `--spacing-xs` (0.25rem) bis `--spacing-3xl` (4rem)
+- **Border Radius:** `--radius-sm` (0.25rem) bis `--radius-xl` (1rem)
+- **Transitions:** `--transition-fast` (150ms), `--transition-base` (250ms), `--transition-slow` (350ms)
 
 ### Typografie
 
@@ -176,6 +193,13 @@ PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
 .section-sm   /* Padding: 2rem oben/unten */
 .page-hero    /* Gemeinsamer Hero für Unterseiten */
 ```
+
+### Weitere globale Styles
+
+- **Formular-Styles:** Globale `input`, `textarea`, `select` Styles mit Fokus-Ring
+- **Animation:** `fadeInUp` Keyframe + `.animate-fade-in-up`
+- **Print-Styles:** `.no-print` Klasse für nicht druckbare Elemente
+- **Reduced Motion:** Respektiert `prefers-reduced-motion`
 
 ---
 
@@ -231,7 +255,7 @@ const items = [...];
 - Astro's `<Image />`-Komponente wird für alle Bilder verwendet (`import { Image } from 'astro:assets'`)
 - Bilder werden aus `src/assets/images/` importiert
 - Attribute wie `width`, `height`, `alt` sind Pflicht
-- Das `public/`-Verzeichnis enthält nur statische Assets wie Favicon, OG-Image, `robots.txt`, `sitemap.xml`
+- Das `public/`-Verzeichnis enthält nur statische Assets wie Favicon, OG-Image, `robots.txt`, `sitemap.xml`, `site.webmanifest`
 
 ### Accessibility (A11y) Standards
 
@@ -286,6 +310,8 @@ Die Website ist auf DSGVO-Konformität ausgelegt:
 - Werte: `'accepted'` | `'declined'`
 - Wird nur bei fehlendem Consent nach 1 Sekunde angezeigt
 - Implementiert in `src/components/CookieBanner.astro`
+- ESC-Taste lehnt Cookies ab und schließt das Banner
+- Fokus-Trap innerhalb des Banners
 
 ---
 
@@ -335,7 +361,7 @@ npm run build
 ### Schema.org JSON-LD
 
 In `BaseHead.astro` implementiert:
-- **LocalBusiness:** Firmendaten, Adresse, Geo-Koordinaten, Öffnungszeiten (Mo–Fr 08:00–18:00)
+- **LocalBusiness:** Firmendaten, Adresse (Roster str 66, 57074 Siegen), Geo-Koordinaten (50.8756, 8.0160), Öffnungszeiten (Mo–Fr 08:00–18:00)
 - **WebSite:** Website-Struktur, SearchAction
 
 ### Open Graph Tags
@@ -346,10 +372,11 @@ Alle Seiten haben vollständige OG-Tags für Social Sharing:
 
 ### Meta-Tags
 
-- Canonical URL
+- Canonical URL (Query-Parameter und Hash werden entfernt)
 - Robots (`index, follow`; auf 404/noindex-Seiten `noindex, nofollow`)
 - Theme Color (`#004252`)
 - Viewport (responsive)
+- Preconnect/DNS-Prefetch zu `api.web3forms.com`
 
 ---
 
@@ -382,6 +409,13 @@ Alle Seiten haben vollständige OG-Tags für Social Sharing:
 - Klick auf Link schließt das Menü
 - Scroll-Shadow für den Header
 - Fokus-Trap im mobilen Menü für Barrierefreiheit
+
+### WhatsApp-Button (`WhatsAppButton.astro`)
+
+- Fixed-Position Button unten rechts
+- Link zu `https://wa.me/4915511693355` mit vorbereitetem Nachrichtentext
+- Pulsierende Animation beim Laden (respektiert `prefers-reduced-motion`)
+- Tooltip bei Hover
 
 ---
 

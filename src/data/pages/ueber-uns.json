@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "title": "Über uns | THZ Innenrenovierung-Hausmeisterdienste Siegen",
+    "description": "Lernen Sie THZ Innenrenovierung kennen. Inhaber Halil Zeka und sein Team stehen für Qualität, Zuverlässigkeit und saubere Arbeit in Siegen & Umgebung."
+  },
+  "hero": {
+    "title": "Über THZ Innenrenovierung",
+    "subtitle": "Ihr zuverlässiger Handwerkspartner in Siegen und Umgebung"
+  },
+  "about": {
+    "title": "Persönlich. Professionell. Zuverlässig.",
+    "image": "/images/cms/ueberuns.jpg",
+    "imageAlt": "Halil Zeka - Inhaber von THZ Innenrenovierung",
+    "paragraphs": [
+      "THZ Innenrenovierung-Hausmeisterdienste steht für handwerkliche Qualität und zuverlässige Dienstleistung. Als Einzelunternehmen mit Sitz in Siegen betreue ich jedes Projekt persönlich – von der ersten Beratung bis zur finalen Übergabe.",
+      "Mein Name ist <strong>Halil Zeka</strong> und ich bin Ihr Ansprechpartner für alle Arbeiten rund um Trockenbau, Bodenverlegung, Maler- und Tapezierarbeiten sowie Renovierungen aller Art. Mit jahrelanger Erfahrung im Handwerk weiß ich, worauf es ankommt:",
+      "Egal ob kleine Reparatur oder umfassende Renovierung – ich bringe Engagement und Fachwissen in jedes Projekt ein. Ihre Zufriedenheit ist mein größter Erfolg."
+    ],
+    "listItems": [
+      "Pünktliche und termingerechte Umsetzung",
+      "Saubere Arbeitsweise vor Ort",
+      "Transparente Kommunikation und faire Preise",
+      "Qualität, die Sie überzeugt"
+    ],
+    "buttonLabel": "Kontakt aufnehmen",
+    "buttonHref": "/kontakt"
+  },
+  "valuesSection": {
+    "title": "Unsere Werte",
+    "subtitle": "Das macht THZ Innenrenovierung aus",
+    "values": [
+      {
+        "title": "Handwerkerehre",
+        "description": "Stolz auf jedes abgeschlossene Projekt und zufriedene Kunden.",
+        "icon": "award"
+      },
+      {
+        "title": "Pünktlichkeit",
+        "description": "Wir halten unsere Termine ein – Zuverlässigkeit ist unsere Stärke.",
+        "icon": "clock"
+      },
+      {
+        "title": "Sauberkeit",
+        "description": "Eine saubere Baustelle ist selbstverständlich für uns.",
+        "icon": "shield"
+      },
+      {
+        "title": "Qualität",
+        "description": "Hochwertige Materialien und präzise Ausführung garantieren Langlebigkeit.",
+        "icon": "thumbs"
+      }
+    ]
+  },
+  "companyData": {
+    "title": "Unternehmensdaten",
+    "items": [
+      { "label": "Firmenname", "value": "THZ Innenrenovierung-Hausmeisterdienste" },
+      { "label": "Inhaber", "value": "Halil Zeka" },
+      { "label": "Adresse", "value": "Roster str 66, 57074 Siegen" },
+      { "label": "Rechtsform", "value": "Einzelunternehmen" }
+    ]
+  }
+}

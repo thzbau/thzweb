@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "title": "Leistungen | THZ Innenrenovierung-Hausmeisterdienste Siegen",
+    "description": "Überblick über unsere Dienstleistungen: Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten, Innenrenovierung und Hausmeisterdienste in Siegen & Umgebung."
+  },
+  "hero": {
+    "title": "Unsere Leistungen im Detail",
+    "subtitle": "Von Trockenbau bis zur Komplettrenovierung – wir bieten Ihnen professionelle Handwerksleistungen aus einer Hand. Sauber, termingerecht und zu fairen Preisen."
+  },
+  "cta": {
+    "title": "Haben Sie Fragen zu unseren Leistungen?",
+    "text": "Wir beraten Sie gerne persönlich und unverbindlich.",
+    "buttonLabel": "Jetzt Kontakt aufnehmen",
+    "buttonHref": "/kontakt"
+  }
+}

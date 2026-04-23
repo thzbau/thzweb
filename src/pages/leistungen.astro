@@ -1,102 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import leistung1 from '../assets/images/leistung1.jpg';
-import leistung2 from '../assets/images/leistung2.jpg';
-import leistung3 from '../assets/images/leistung3.jpg';
-import leistung4 from '../assets/images/leistung4.jpg';
-import hausmeisterImg from '../assets/images/hausmeisterdienste.jpg';
+import leistungenData from '../data/pages/leistungen.json';
+import servicesData from '../data/services.json';
 
-const services = [
-  {
-    id: 'trockenbau',
-    title: 'Trockenbau',
-    subtitle: 'Wände, Decken & Dämmungen',
-    description: 'Wir realisieren fachgerechte Trockenbau-Lösungen für Ihre Räume. Ob neue Raumaufteilung, abgehängte Decken oder professionelle Dämmung – wir setzen Ihre Wünsche präzise und sauber um.',
-    image: leistung1,
-    features: [
-      'Trennwände und Raumaufteilungen',
-      'Abgehängte Decken mit Beleuchtung',
-      'Wärme- und Schalldämmung',
-      'Indirekte Beleuchtungskonzepte',
-      'Schnelle, staubarme Montage',
-    ],
-    imagePosition: 'left',
-  },
-  {
-    id: 'boden',
-    title: 'Bodenverlegung',
-    subtitle: 'Laminat, Vinyl & Parkett',
-    description: 'Ein neuer Boden verändert den gesamten Raumcharakter. Wir verlegen Laminat, Vinyl und Parkett fachgerecht und mit äußerster Präzision – für ein perfektes Ergebnis, das Sie jahrelang begleitet.',
-    image: leistung2,
-    features: [
-      'Laminat-Verlegung aller Klassen',
-      'Vinyl-Designboden (Klick & Kleben)',
-      'Echtholz-Parkett',
-      'Vorbereitung und Ausgleich der Untergründe',
-      'Fugenspachtelung und Versiegelung',
-    ],
-    imagePosition: 'right',
-  },
-  {
-    id: 'maler',
-    title: 'Maler- & Tapezierarbeiten',
-    subtitle: 'Farbige Akzente & hochwertige Wände',
-    description: 'Saubere Farbarbeiten und hochwertige Tapezierungen sind unsere Stärke. Wir sorgen für makellose Oberflächen und setzen Ihre Wohnwünsche mit Farbe und Mustern gekonnt um.',
-    image: leistung3,
-    features: [
-      'Innenanstriche aller Art',
-      'Tapezierungen mit Vliestapeten & Papier',
-      'Spachtelung und Glättung',
-      'Lackierarbeiten an Türen und Fenstern',
-      'Beratung bei Farbwahl und Mustern',
-    ],
-    imagePosition: 'left',
-  },
-  {
-    id: 'renovierung',
-    title: 'Innenrenovierung',
-    subtitle: 'Komplettsanierung aus einer Hand',
-    description: 'Von der Wohnungsrenovierung bis zur kompletten Hausesanierung – wir begleiten Sie von der Planung bis zur fertigen Umsetzung. Sauber, termingerecht und mit höchstem Qualitätsanspruch.',
-    image: leistung4,
-    features: [
-      'Komplettrenovierungen von Wohnungen und Häusern',
-      'Badsanierung und Küchenmodernisierung',
-      'Elektro- und Sanitärarbeiten über Partner',
-      'Beratung, Planung und Umsetzung',
-      'Festpreisangebote ohne versteckte Kosten',
-    ],
-    imagePosition: 'right',
-  },
-  {
-    id: 'hausmeister',
-    title: 'Hausmeisterdienste',
-    subtitle: 'Betreuung von Immobilien & Außenanlagen',
-    description: 'Zuverlässige Hausmeisterdienste für Gewerbe und Privat. Von der regelmäßigen Wartung bis zur Gartenpflege – wir kümmern uns gründlich und termingerecht um Ihr Objekt.',
-    image: hausmeisterImg,
-    features: [
-      'Regelmäßige Wartung & Instandhaltung',
-      'Gartenpflege & Außenanlagen',
-      'Kleine Reparaturen vor Ort',
-      'Winterdienst (auf Anfrage)',
-      'Pünktlich & vertrauenswürdig',
-    ],
-    imagePosition: 'left',
-  },
-];
+const { meta, hero, cta } = leistungenData;
 ---
 
 <BaseLayout
-  title="Leistungen | THZ Innenrenovierung-Hausmeisterdienste Siegen"
-  description="Überblick über unsere Dienstleistungen: Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten, Innenrenovierung und Hausmeisterdienste in Siegen & Umgebung."
+  title={meta.title}
+  description={meta.description}
 >
   <!-- Hero -->
   <section class="page-hero" aria-labelledby="page-title">
     <div class="container">
-      <h1 id="page-title" class="page-title">Unsere Leistungen im Detail</h1>
+      <h1 id="page-title" class="page-title">{hero.title}</h1>
       <p class="page-subtitle">
-        Von Trockenbau bis zur Komplettrenovierung – wir bieten Ihnen professionelle Handwerksleistungen 
-        aus einer Hand. Sauber, termingerecht und zu fairen Preisen.
+        {hero.subtitle}
       </p>
     </div>
   </section>
@@ -104,12 +23,12 @@ const services = [
   <!-- Services Detail -->
   <section class="services-detail section" aria-label="Leistungsdetails">
     <div class="container">
-      {services.map((service) => (
-        <article class={`service-block ${service.imagePosition}`} id={service.id}>
+      {servicesData.services.map((service, index) => (
+        <article class={`service-block ${index % 2 === 0 ? 'left' : 'right'}`} id={service.id}>
           <div class="service-image-wrapper">
-            <Image 
+            <img 
               src={service.image} 
-              alt={service.title}
+              alt={service.imageAlt}
               class="service-image"
               width={600}
               height={400}
@@ -119,7 +38,7 @@ const services = [
           <div class="service-content">
             <span class="service-subtitle">{service.subtitle}</span>
             <h2 class="service-title">{service.title}</h2>
-            <p class="service-description">{service.description}</p>
+            <p class="service-description">{service.detailDescription}</p>
             
             <ul class="feature-list">
               {service.features.map((feature) => (
@@ -149,9 +68,9 @@ const services = [
   <section class="section cta-alt" aria-labelledby="cta-title">
     <div class="container">
       <div class="cta-box">
-        <h2 id="cta-title" class="cta-title">Haben Sie Fragen zu unseren Leistungen?</h2>
-        <p class="cta-text">Wir beraten Sie gerne persönlich und unverbindlich.</p>
-        <a href="/kontakt" class="btn btn-primary btn-lg">Jetzt Kontakt aufnehmen</a>
+        <h2 id="cta-title" class="cta-title">{cta.title}</h2>
+        <p class="cta-text">{cta.text}</p>
+        <a href={cta.buttonHref} class="btn btn-primary btn-lg">{cta.buttonLabel}</a>
       </div>
     </div>
   </section>

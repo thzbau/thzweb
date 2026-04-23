@@ -1,0 +1,473 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/cms"
+public_folder: "/images/cms"
+
+site_url: https://thz-renovierung.de
+logo_url: /images/cms/logo.jpg
+
+# i18n
+locale: 'de'
+
+# Editor settings
+publish_mode: editorial_workflow
+
+slug:
+  encoding: "unicode"
+  clean_accents: false
+
+# Collections
+collections:
+  # ─────────────────────────────────────────────
+  # 1. Globale Einstellungen
+  # ─────────────────────────────────────────────
+  - name: "settings"
+    label: "⚙️ Globale Einstellungen"
+    description: "Firmendaten, Navigation, Footer – erscheinen auf allen Seiten"
+    files:
+      - file: "src/data/global.json"
+        label: "Globale Daten"
+        name: "global"
+        fields:
+          - label: "Firmendaten"
+            name: "company"
+            widget: "object"
+            fields:
+              - { label: "Firmenname", name: "name", widget: "string" }
+              - { label: "Inhaber", name: "owner", widget: "string" }
+              - { label: "Adresse", name: "address", widget: "string" }
+              - { label: "Telefon", name: "phone", widget: "string" }
+              - { label: "E-Mail", name: "email", widget: "string" }
+              - { label: "Website-URL", name: "url", widget: "string" }
+
+          - label: "Öffnungszeiten"
+            name: "openingHours"
+            widget: "object"
+            fields:
+              - { label: "Werktags", name: "weekdays", widget: "string" }
+              - { label: "Samstag", name: "saturday", widget: "string" }
+
+          - label: "Logo"
+            name: "logo"
+            widget: "image"
+            choose_url: false
+            media_library:
+              config:
+                multiple: false
+
+          - label: "Logo Alt-Text"
+            name: "logoAlt"
+            widget: "string"
+
+          - label: "OG-Image (Social Media)"
+            name: "ogImage"
+            widget: "image"
+            choose_url: false
+
+          - label: "Navigation"
+            name: "navigation"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Link", name: "href", widget: "string" }
+
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - { label: "Beschreibung", name: "description", widget: "text" }
+              - { label: "Badge-Text", name: "badge", widget: "string" }
+              - label: "Quick Links"
+                name: "quickLinks"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+              - label: "Rechtliche Links"
+                name: "legalLinks"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+              - { label: "Copyright-Text ({year} wird ersetzt)", name: "copyright", widget: "string" }
+
+          - label: "Header CTA"
+            name: "headerCta"
+            widget: "object"
+            fields:
+              - { label: "Button-Text", name: "label", widget: "string" }
+              - { label: "Link", name: "href", widget: "string" }
+
+          - label: "Mobile Menü"
+            name: "mobileMenu"
+            widget: "object"
+            fields:
+              - { label: "CTA-Button Text", name: "ctaLabel", widget: "string" }
+              - { label: "Telefon-Text", name: "phoneLabel", widget: "string" }
+
+          - label: "Schema.org (SEO)"
+            name: "schema"
+            widget: "object"
+            fields:
+              - { label: "Preisspanne", name: "priceRange", widget: "string" }
+              - { label: "Breitengrad", name: "latitude", widget: "string" }
+              - { label: "Längengrad", name: "longitude", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # 2. Leistungen (wiederverwendbar)
+  # ─────────────────────────────────────────────
+  - name: "services"
+    label: "🔧 Leistungen"
+    description: "Die 5 Leistungen – werden auf Startseite und Leistungsseite verwendet"
+    files:
+      - file: "src/data/services.json"
+        label: "Alle Leistungen"
+        name: "services"
+        fields:
+          - label: "Leistungen"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "ID (Anchor)", name: "id", widget: "string" }
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "string" }
+              - { label: "Teaser-Beschreibung (Startseite)", name: "teaserDescription", widget: "text" }
+              - { label: "Detail-Beschreibung (Leistungsseite)", name: "detailDescription", widget: "text" }
+              - { label: "Bild", name: "image", widget: "image", choose_url: false }
+              - { label: "Bild Alt-Text", name: "imageAlt", widget: "string" }
+              - label: "Features (Leistungsseite)"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # 3. Referenz-Projekte
+  # ─────────────────────────────────────────────
+  - name: "projects"
+    label: "📸 Referenzprojekte"
+    description: "Vorher-Nachher-Bilder für die Referenzen-Seite"
+    files:
+      - file: "src/data/projects.json"
+        label: "Alle Projekte"
+        name: "projects"
+        fields:
+          - { label: "Seiten-Titel", name: "title", widget: "string" }
+          - { label: "Seiten-Untertitel", name: "subtitle", widget: "text" }
+          - label: "Projekte"
+            name: "projects"
+            widget: "list"
+            fields:
+              - { label: "Vorher-Bild", name: "before", widget: "image", choose_url: false }
+              - { label: "Nachher-Bild", name: "after", widget: "image", choose_url: false }
+              - { label: "Vorher Alt-Text", name: "altBefore", widget: "string" }
+              - { label: "Nachher Alt-Text", name: "altAfter", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # 4. Seiten (JSON)
+  # ─────────────────────────────────────────────
+  - name: "pages"
+    label: "📄 Seiten"
+    description: "Seiten-spezifische Inhalte"
+    files:
+      # ─── Startseite ───
+      - file: "src/data/pages/home.json"
+        label: "🏠 Startseite"
+        name: "home"
+        fields:
+          - label: "SEO"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Beschreibung", name: "description", widget: "text" }
+
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Titel (HTML erlaubt)", name: "title", widget: "text" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+              - { label: "Bild", name: "image", widget: "image", choose_url: false }
+              - { label: "Bild Alt-Text", name: "imageAlt", widget: "string" }
+              - label: "Buttons"
+                name: "buttons"
+                widget: "list"
+                fields:
+                  - { label: "Text", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+                  - { label: "Variante", name: "variant", widget: "select", options: ["primary", "outline", "secondary"] }
+                  - { label: "Icon", name: "icon", widget: "select", options: ["phone", "arrow"], required: false }
+
+          - label: "Trust-Bar"
+            name: "trustBar"
+            widget: "object"
+            fields:
+              - label: "Punkte"
+                name: "points"
+                widget: "list"
+                field: { label: "Text", name: "point", widget: "string" }
+
+          - label: "Services-Teaser"
+            name: "servicesSection"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+              - { label: "Link-Text", name: "linkLabel", widget: "string" }
+              - { label: "Link-Ziel", name: "linkHref", widget: "string" }
+
+          - label: "Prozess"
+            name: "processSection"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+              - label: "Schritte"
+                name: "steps"
+                widget: "list"
+                fields:
+                  - { label: "Nummer", name: "step", widget: "string" }
+                  - { label: "Titel", name: "title", widget: "string" }
+                  - { label: "Beschreibung", name: "description", widget: "text" }
+
+          - label: "Testimonials"
+            name: "testimonialsSection"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+              - label: "Bewertungen"
+                name: "testimonials"
+                widget: "list"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Ort", name: "location", widget: "string" }
+                  - { label: "Text", name: "text", widget: "text" }
+                  - { label: "Bewertung (1-5)", name: "rating", widget: "number", value_type: "int", min: 1, max: 5 }
+
+          - label: "Bottom CTA"
+            name: "bottomCta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+              - label: "Buttons"
+                name: "buttons"
+                widget: "list"
+                fields:
+                  - { label: "Text", name: "label", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+                  - { label: "Variante", name: "variant", widget: "select", options: ["primary", "secondary"] }
+                  - { label: "Icon", name: "icon", widget: "select", options: ["phone", "arrow"], required: false }
+
+      # ─── Leistungen ───
+      - file: "src/data/pages/leistungen.json"
+        label: "🔧 Leistungen"
+        name: "leistungen"
+        fields:
+          - label: "SEO"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Beschreibung", name: "description", widget: "text" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+          - label: "CTA-Box"
+            name: "cta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Button-Text", name: "buttonLabel", widget: "string" }
+              - { label: "Button-Link", name: "buttonHref", widget: "string" }
+
+      # ─── Über uns ───
+      - file: "src/data/pages/ueber-uns.json"
+        label: "👤 Über uns"
+        name: "ueber-uns"
+        fields:
+          - label: "SEO"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Beschreibung", name: "description", widget: "text" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+          - label: "About-Bereich"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Bild", name: "image", widget: "image", choose_url: false }
+              - { label: "Bild Alt-Text", name: "imageAlt", widget: "string" }
+              - label: "Textabsätze (HTML erlaubt)"
+                name: "paragraphs"
+                widget: "list"
+                field: { label: "Absatz", name: "paragraph", widget: "text" }
+              - label: "Listenpunkte"
+                name: "listItems"
+                widget: "list"
+                field: { label: "Punkt", name: "item", widget: "string" }
+              - { label: "Button-Text", name: "buttonLabel", widget: "string" }
+              - { label: "Button-Link", name: "buttonHref", widget: "string" }
+          - label: "Werte-Bereich"
+            name: "valuesSection"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+              - label: "Werte"
+                name: "values"
+                widget: "list"
+                fields:
+                  - { label: "Titel", name: "title", widget: "string" }
+                  - { label: "Beschreibung", name: "description", widget: "text" }
+                  - { label: "Icon", name: "icon", widget: "select", options: ["award", "clock", "shield", "thumbs"] }
+          - label: "Unternehmensdaten"
+            name: "companyData"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - label: "Daten"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Bezeichnung", name: "label", widget: "string" }
+                  - { label: "Wert", name: "value", widget: "string" }
+
+      # ─── Kontakt ───
+      - file: "src/data/pages/kontakt.json"
+        label: "📞 Kontakt"
+        name: "kontakt"
+        fields:
+          - label: "SEO"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Beschreibung", name: "description", widget: "text" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+          - label: "Kontaktformular"
+            name: "form"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+              - label: "Felder"
+                name: "fields"
+                widget: "object"
+                fields:
+                  - label: "Name"
+                    name: "name"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Platzhalter", name: "placeholder", widget: "string" }
+                      - { label: "Fehlermeldung", name: "error", widget: "string" }
+                  - label: "E-Mail"
+                    name: "email"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Platzhalter", name: "placeholder", widget: "string" }
+                      - { label: "Fehlermeldung", name: "error", widget: "string" }
+                  - label: "Telefon"
+                    name: "phone"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Platzhalter", name: "placeholder", widget: "string" }
+                  - label: "Nachricht"
+                    name: "message"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Platzhalter", name: "placeholder", widget: "string" }
+                      - { label: "Fehlermeldung", name: "error", widget: "string" }
+                  - label: "Datenschutz"
+                    name: "privacy"
+                    widget: "object"
+                    fields:
+                      - { label: "Text (HTML erlaubt)", name: "text", widget: "text" }
+                      - { label: "Fehlermeldung", name: "error", widget: "string" }
+              - { label: "Submit-Button Text", name: "submitLabel", widget: "string" }
+              - { label: "Senden-Text", name: "sendingLabel", widget: "string" }
+              - label: "Erfolgsmeldung"
+                name: "success"
+                widget: "object"
+                fields:
+                  - { label: "Titel", name: "title", widget: "string" }
+                  - { label: "Text", name: "message", widget: "text" }
+              - label: "Fehlermeldung"
+                name: "error"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "message", widget: "text" }
+          - label: "Kontaktinfos (rechte Spalte)"
+            name: "contactInfo"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Telefon-Label", name: "phoneLabel", widget: "string" }
+              - { label: "E-Mail-Label", name: "emailLabel", widget: "string" }
+              - { label: "Adress-Label", name: "addressLabel", widget: "string" }
+              - { label: "Erreichbarkeit-Label", name: "availabilityLabel", widget: "string" }
+              - { label: "Google Maps Embed URL", name: "mapEmbedUrl", widget: "text" }
+
+      # ─── Referenzen ───
+      - file: "src/data/pages/referenzen.json"
+        label: "📸 Referenzen"
+        name: "referenzen"
+        fields:
+          - label: "SEO"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Beschreibung", name: "description", widget: "text" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Untertitel", name: "subtitle", widget: "text" }
+          - label: "CTA-Box"
+            name: "cta"
+            widget: "object"
+            fields:
+              - { label: "Titel", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "Button-Text", name: "buttonLabel", widget: "string" }
+              - { label: "Button-Link", name: "buttonHref", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # 5. Rechtliches (Markdown)
+  # ─────────────────────────────────────────────
+  - name: "legal"
+    label: "⚖️ Rechtliches"
+    description: "Impressum und Datenschutzerklärung"
+    folder: "src/content/legal"
+    create: false
+    delete: false
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Meta-Beschreibung", name: "description", widget: "text", required: false }
+      - { label: "Inhalt", name: "body", widget: "markdown" }

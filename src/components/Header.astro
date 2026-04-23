@@ -1,15 +1,7 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/images/logo.jpg';
+import globalData from '../data/global.json';
 
-const navItems = [
-  { label: 'Startseite', href: '/' },
-  { label: 'Leistungen', href: '/leistungen' },
-  { label: 'Referenzen', href: '/referenzen' },
-  { label: 'Über uns', href: '/ueber-uns' },
-  { label: 'Kontakt', href: '/kontakt' },
-];
-
+const navItems = globalData.navigation;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -17,10 +9,10 @@ const currentPath = Astro.url.pathname;
   <div class="container">
     <nav class="nav" aria-label="Hauptnavigation">
       <!-- Logo -->
-      <a href="/" class="logo" aria-label="THZ Innenrenovierung - Zur Startseite">
-        <Image 
-          src={logo} 
-          alt="THZ Innenrenovierung Logo" 
+      <a href="/" class="logo" aria-label={`${globalData.company.name} - Zur Startseite`}>
+        <img 
+          src={globalData.logo} 
+          alt={globalData.logoAlt} 
           class="logo-image"
           width={103}
           height={60}
@@ -44,11 +36,11 @@ const currentPath = Astro.url.pathname;
         </ul>
         
         <!-- CTA Button Desktop -->
-        <a href="/kontakt" class="btn btn-primary btn-sm">
+        <a href={globalData.headerCta.href} class="btn btn-primary btn-sm">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
-          Angebot anfordern
+          {globalData.headerCta.label}
         </a>
       </div>
 
@@ -90,19 +82,19 @@ const currentPath = Astro.url.pathname;
         ))}
       </ul>
       
-      <a href="/kontakt" class="btn btn-primary mobile-cta">
+      <a href={globalData.headerCta.href} class="btn btn-primary mobile-cta">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
         </svg>
-        Angebot anfordern
+        {globalData.mobileMenu.ctaLabel}
       </a>
       
       <div class="mobile-contact">
-        <a href="tel:015511693355" class="mobile-phone">
+        <a href={`tel:${globalData.company.phone.replace(/\s/g, '')}`} class="mobile-phone">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
-          0155 1169 3355
+          {globalData.mobileMenu.phoneLabel}
         </a>
       </div>
     </div>

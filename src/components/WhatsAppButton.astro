@@ -1,8 +1,10 @@
 ---
-// Company phone number (without + for wa.me)
-const phoneNumber = '4915511693355';
+import globalData from '../data/global.json';
+
+// Build WhatsApp URL from global phone number
+const phoneDigits = globalData.company.phone.replace(/\s/g, '').replace(/^0/, '49');
 const whatsappText = encodeURIComponent('Hallo Herr Zeka, ich hätte gerne ein Angebot für eine Renovierung. Können Sie mich bitte zurückrufen?');
-const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappText}`;
+const whatsappUrl = `https://wa.me/${phoneDigits}?text=${whatsappText}`;
 ---
 
 <a

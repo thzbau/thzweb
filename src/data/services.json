@@ -1,0 +1,84 @@
+{
+  "services": [
+    {
+      "id": "trockenbau",
+      "title": "Trockenbau",
+      "subtitle": "Wände, Decken & Dämmungen",
+      "teaserDescription": "Wände, Decken und Dämmungen – fachgerecht und schnell umgesetzt.",
+      "detailDescription": "Wir realisieren fachgerechte Trockenbau-Lösungen für Ihre Räume. Ob neue Raumaufteilung, abgehängte Decken oder professionelle Dämmung – wir setzen Ihre Wünsche präzise und sauber um.",
+      "image": "/images/cms/leistung1.jpg",
+      "imageAlt": "Trockenbauarbeiten",
+      "features": [
+        "Trennwände und Raumaufteilungen",
+        "Abgehängte Decken mit Beleuchtung",
+        "Wärme- und Schalldämmung",
+        "Indirekte Beleuchtungskonzepte",
+        "Schnelle, staubarme Montage"
+      ]
+    },
+    {
+      "id": "boden",
+      "title": "Bodenverlegung",
+      "subtitle": "Laminat, Vinyl & Parkett",
+      "teaserDescription": "Laminat, Vinyl oder Parkett – perfekt verlegt für jeden Raum.",
+      "detailDescription": "Ein neuer Boden verändert den gesamten Raumcharakter. Wir verlegen Laminat, Vinyl und Parkett fachgerecht und mit äußerster Präzision – für ein perfektes Ergebnis, das Sie jahrelang begleitet.",
+      "image": "/images/cms/leistung2.jpg",
+      "imageAlt": "Bodenverlegung",
+      "features": [
+        "Laminat-Verlegung aller Klassen",
+        "Vinyl-Designboden (Klick & Kleben)",
+        "Echtholz-Parkett",
+        "Vorbereitung und Ausgleich der Untergründe",
+        "Fugenspachtelung und Versiegelung"
+      ]
+    },
+    {
+      "id": "maler",
+      "title": "Maler- & Tapezierarbeiten",
+      "subtitle": "Farbige Akzente & hochwertige Wände",
+      "teaserDescription": "Saubere Farbarbeiten und hochwertige Tapezierungen.",
+      "detailDescription": "Saubere Farbarbeiten und hochwertige Tapezierungen sind unsere Stärke. Wir sorgen für makellose Oberflächen und setzen Ihre Wohnwünsche mit Farbe und Mustern gekonnt um.",
+      "image": "/images/cms/leistung3.jpg",
+      "imageAlt": "Maler- und Tapezierarbeiten",
+      "features": [
+        "Innenanstriche aller Art",
+        "Tapezierungen mit Vliestapeten & Papier",
+        "Spachtelung und Glättung",
+        "Lackierarbeiten an Türen und Fenstern",
+        "Beratung bei Farbwahl und Mustern"
+      ]
+    },
+    {
+      "id": "renovierung",
+      "title": "Innenrenovierung",
+      "subtitle": "Komplettsanierung aus einer Hand",
+      "teaserDescription": "Komplettrenovierungen vom Profi – von A bis Z für Wohnungen und Häuser.",
+      "detailDescription": "Von der Wohnungsrenovierung bis zur kompletten Hausesanierung – wir begleiten Sie von der Planung bis zur fertigen Umsetzung. Sauber, termingerecht und mit höchstem Qualitätsanspruch.",
+      "image": "/images/cms/leistung4.jpg",
+      "imageAlt": "Innenrenovierung",
+      "features": [
+        "Komplettrenovierungen von Wohnungen und Häusern",
+        "Badsanierung und Küchenmodernisierung",
+        "Elektro- und Sanitärarbeiten über Partner",
+        "Beratung, Planung und Umsetzung",
+        "Festpreisangebote ohne versteckte Kosten"
+      ]
+    },
+    {
+      "id": "hausmeister",
+      "title": "Hausmeisterdienste",
+      "subtitle": "Betreuung von Immobilien & Außenanlagen",
+      "teaserDescription": "Zuverlässige Betreuung von Immobilien und Außenanlagen.",
+      "detailDescription": "Zuverlässige Hausmeisterdienste für Gewerbe und Privat. Von der regelmäßigen Wartung bis zur Gartenpflege – wir kümmern uns gründlich und termingerecht um Ihr Objekt.",
+      "image": "/images/cms/hausmeisterdienste.jpg",
+      "imageAlt": "Hausmeisterdienste",
+      "features": [
+        "Regelmäßige Wartung & Instandhaltung",
+        "Gartenpflege & Außenanlagen",
+        "Kleine Reparaturen vor Ort",
+        "Winterdienst (auf Anfrage)",
+        "Pünktlich & vertrauenswürdig"
+      ]
+    }
+  ]
+}

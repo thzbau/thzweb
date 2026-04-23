@@ -1,0 +1,53 @@
+{
+  "company": {
+    "name": "THZ Innenrenovierung-Hausmeisterdienste",
+    "owner": "Halil Zeka",
+    "address": "Roster str 66, 57074 Siegen",
+    "phone": "0155 1169 3355",
+    "email": "Info@thz-renovierung.de",
+    "url": "https://thz-renovierung.de"
+  },
+  "openingHours": {
+    "weekdays": "Mo–Fr: 08:00–18:00 Uhr",
+    "saturday": "Sa: Nach Vereinbarung"
+  },
+  "logo": "/images/cms/logo.jpg",
+  "logoAlt": "THZ Innenrenovierung Logo",
+  "ogImage": "/images/og-image.jpg",
+  "navigation": [
+    { "label": "Startseite", "href": "/" },
+    { "label": "Leistungen", "href": "/leistungen" },
+    { "label": "Referenzen", "href": "/referenzen" },
+    { "label": "Über uns", "href": "/ueber-uns" },
+    { "label": "Kontakt", "href": "/kontakt" }
+  ],
+  "footer": {
+    "description": "Ihr zuverlässiger Partner für Trockenbau, Bodenverlegung, Maler- & Tapezierarbeiten und Renovierungen in Siegen & Umgebung. Sauber, schnell und professionell.",
+    "badge": "Einzelunternehmen",
+    "quickLinks": [
+      { "label": "Trockenbau", "href": "/leistungen#trockenbau" },
+      { "label": "Bodenverlegung", "href": "/leistungen#boden" },
+      { "label": "Malerarbeiten", "href": "/leistungen#maler" },
+      { "label": "Hausmeisterdienste", "href": "/leistungen#hausmeister" },
+      { "label": "Referenzen", "href": "/referenzen" }
+    ],
+    "legalLinks": [
+      { "label": "Impressum", "href": "/impressum" },
+      { "label": "Datenschutz", "href": "/datenschutz" }
+    ],
+    "copyright": "© {year} THZ Innenrenovierung-Hausmeisterdienste. Alle Rechte vorbehalten."
+  },
+  "headerCta": {
+    "label": "Angebot anfordern",
+    "href": "/kontakt"
+  },
+  "mobileMenu": {
+    "ctaLabel": "Angebot anfordern",
+    "phoneLabel": "0155 1169 3355"
+  },
+  "schema": {
+    "priceRange": "€€",
+    "latitude": "50.8756",
+    "longitude": "8.0160"
+  }
+}

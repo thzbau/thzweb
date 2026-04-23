@@ -1,43 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
+import referenzenData from '../data/pages/referenzen.json';
+import projectsData from '../data/projects.json';
 
-import vor1 from '../assets/images/vor1.jpeg';
-import nach1 from '../assets/images/nach1.jpeg';
-import vor2 from '../assets/images/vor2.jpeg';
-import nach2 from '../assets/images/nach2.jpeg';
-import vor3 from '../assets/images/vor3.jpeg';
-import nach3 from '../assets/images/nach3.jpeg';
-import vor4 from '../assets/images/vor4.jpeg';
-import nach4 from '../assets/images/nach4.jpeg';
-import vor5 from '../assets/images/vor5.jpeg';
-import nach5 from '../assets/images/nach5.jpeg';
-import vor6 from '../assets/images/vor6.jpeg';
-import nach6 from '../assets/images/nach6.jpeg';
-import vor7 from '../assets/images/vor7.jpeg';
-import nach7 from '../assets/images/nach7.jpeg';
-
-const projects = [
-  { before: vor1, after: nach1 },
-  { before: vor2, after: nach2 },
-  { before: vor3, after: nach3 },
-  { before: vor4, after: nach4 },
-  { before: vor5, after: nach5 },
-  { before: vor6, after: nach6 },
-  { before: vor7, after: nach7 },
-];
+const { meta, hero, cta } = referenzenData;
 ---
 
 <BaseLayout
-  title="Referenzen | THZ Innenrenovierung-Hausmeisterdienste Siegen"
-  description="Sehen Sie sich unsere abgeschlossenen Projekte an. Interaktive Vorher-Nachher-Vergleiche von Renovierungen, Bodenverlegungen und mehr in Siegen und Umgebung."
+  title={meta.title}
+  description={meta.description}
 >
   <!-- Hero -->
   <section class="page-hero" aria-labelledby="page-title">
     <div class="container">
-      <h1 id="page-title" class="page-title">Unsere Referenzen</h1>
+      <h1 id="page-title" class="page-title">{hero.title}</h1>
       <p class="page-subtitle">
-        Qualität, die Sie sehen können. Ziehen Sie den Regler und überzeugen Sie sich selbst.
+        {hero.subtitle}
       </p>
     </div>
   </section>
@@ -48,14 +26,14 @@ const projects = [
       <h2 id="sliders-title" class="sr-only">Vorher-Nachher-Vergleiche</h2>
 
       <div class="sliders-list">
-        {projects.map((project, index) => (
+        {projectsData.projects.map((project, index) => (
           <article class="ba-slider" data-ba-slider style={`--delay: ${index * 100}ms`}>
             <div class="ba-frame">
               <!-- After image (full background) -->
               <div class="ba-side ba-after">
-                <Image
+                <img
                   src={project.after}
-                  alt={`Referenzprojekt ${index + 1} - Nachher`}
+                  alt={project.altAfter}
                   width={1200}
                   height={800}
                   class="ba-photo"
@@ -65,9 +43,9 @@ const projects = [
 
               <!-- Before image (clipped overlay) -->
               <div class="ba-side ba-before" data-ba-before>
-                <Image
+                <img
                   src={project.before}
-                  alt={`Referenzprojekt ${index + 1} - Vorher`}
+                  alt={project.altBefore}
                   width={1200}
                   height={800}
                   class="ba-photo"
@@ -104,10 +82,10 @@ const projects = [
   <section class="section cta-alt" aria-labelledby="cta-title">
     <div class="container">
       <div class="cta-box">
-        <h2 id="cta-title" class="cta-title">Werden Sie unser nächstes Referenzprojekt?</h2>
-        <p class="cta-text">Wir freuen uns darauf, auch Ihr Vorhaben professionell umzusetzen.</p>
-        <a href="/kontakt" class="btn btn-primary btn-lg">
-          Projekt besprechen
+        <h2 id="cta-title" class="cta-title">{cta.title}</h2>
+        <p class="cta-text">{cta.text}</p>
+        <a href={cta.buttonHref} class="btn btn-primary btn-lg">
+          {cta.buttonLabel}
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14"/>
             <path d="m12 5 7 7-7 7"/>

@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Kontakt | THZ Innenrenovierung-Hausmeisterdienste Siegen",
+    "description": "Kontaktieren Sie THZ Innenrenovierung für ein unverbindliches Angebot. Tel: 0155 1169 3355 | Email: Info@thz-renovierung.de | Adresse: Roster str 66, 57074 Siegen"
+  },
+  "hero": {
+    "title": "Kontakt",
+    "subtitle": "Rufen Sie uns an, schreiben Sie uns – wir beraten Sie gerne unverbindlich."
+  },
+  "form": {
+    "title": "Schreiben Sie uns",
+    "subtitle": "Füllen Sie das Formular aus – wir melden uns schnellstmöglich bei Ihnen.",
+    "fields": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Ihr vollständiger Name",
+        "error": "Bitte geben Sie Ihren Namen ein."
+      },
+      "email": {
+        "label": "E-Mail",
+        "placeholder": "ihre@email.de",
+        "error": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+      },
+      "phone": {
+        "label": "Telefon",
+        "placeholder": "Ihre Telefonnummer"
+      },
+      "message": {
+        "label": "Nachricht",
+        "placeholder": "Beschreiben Sie Ihr Projekt...",
+        "error": "Bitte beschreiben Sie Ihr Anliegen (mindestens 10 Zeichen)."
+      },
+      "privacy": {
+        "text": "Ich habe die <a href=\"/datenschutz\">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu.",
+        "error": "Bitte akzeptieren Sie die Datenschutzerklärung."
+      }
+    },
+    "submitLabel": "Nachricht senden",
+    "sendingLabel": "Wird gesendet...",
+    "success": {
+      "title": "Vielen Dank!",
+      "message": "Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns schnellstmöglich bei Ihnen."
+    },
+    "error": {
+      "message": "Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns direkt an."
+    }
+  },
+  "contactInfo": {
+    "title": "Direkter Kontakt",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-Mail",
+    "addressLabel": "Adresse",
+    "availabilityLabel": "Erreichbarkeit",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.0!2d8.0156!3d50.8756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRoster+Str.+66%2C+57074+Siegen!5e0!3m2!1sde!2sde!4v1234567890"
+  }
+}
