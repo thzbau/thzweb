@@ -31,6 +31,8 @@ const { meta, hero, about, valuesSection, companyData } = ueberUnsData;
             class="portrait-img"
             width={400}
             height={500}
+            loading="lazy"
+            decoding="async"
           />
         </div>
         
@@ -38,7 +40,7 @@ const { meta, hero, about, valuesSection, companyData } = ueberUnsData;
           <h2 id="about-title" class="about-title">{about.title}</h2>
           
           <div class="about-text">
-            {about.paragraphs.map((paragraph, index) => (
+            {about.paragraphs.map((paragraph) => (
               <p set:html={paragraph} />
             ))}
             
@@ -47,8 +49,6 @@ const { meta, hero, about, valuesSection, companyData } = ueberUnsData;
                 <li>{item}</li>
               ))}
             </ul>
-            
-            <p set:html={about.paragraphs[about.paragraphs.length - 1]} />
           </div>
           
           <a href={about.buttonHref} class="btn btn-primary">

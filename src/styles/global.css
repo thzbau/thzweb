@@ -15,9 +15,9 @@
   --color-primary-dark: #003540;
   --color-primary-light: #005a6e;
   
-  --color-accent: #fd5909;
-  --color-accent-hover: #e54d00;
-  --color-accent-light: #ff7a3a;
+  --color-accent: #cd4400;
+  --color-accent-hover: #a83800;
+  --color-accent-light: #e06020;
   
   /* Neutral Colors */
   --color-white: #ffffff;
@@ -86,6 +86,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 /* Typography */
@@ -198,6 +200,10 @@ p {
 .btn-outline:hover {
   background-color: var(--color-primary);
   color: var(--color-white);
+}
+
+.text-accent {
+  color: var(--color-accent);
 }
 
 /* Form Styles */

@@ -67,7 +67,7 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Mobile Navigation -->
-  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation" aria-hidden="true">
     <div class="mobile-menu-content">
       <ul class="mobile-nav-list">
         {navItems.map((item) => (
@@ -103,6 +103,44 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile Menu Overlay -->
   <div class="mobile-overlay" id="mobile-overlay"></div>
 </header>
+
+<noscript>
+  <style>
+    #mobile-menu-toggle,
+    #mobile-overlay {
+      display: none !important;
+    }
+    #mobile-menu {
+      position: static;
+      transform: none;
+      display: block !important;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-border);
+    }
+    #mobile-menu .mobile-menu-content {
+      padding: var(--spacing-md) var(--spacing-xl);
+    }
+    #mobile-menu .mobile-nav-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #mobile-menu .mobile-nav-item {
+      border: none;
+    }
+    #mobile-menu .mobile-nav-link {
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: 1rem;
+    }
+    #mobile-menu .mobile-cta,
+    #mobile-menu .mobile-contact {
+      display: none;
+    }
+  </style>
+</noscript>
 
 <style>
   .header {
@@ -333,6 +371,7 @@ const currentPath = Astro.url.pathname;
       menuToggle?.setAttribute('aria-expanded', String(willOpen));
       menuToggle?.setAttribute('aria-label', willOpen ? 'Menü schließen' : 'Menü öffnen');
       mobileMenu?.classList.toggle('active', willOpen);
+      mobileMenu?.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
       mobileOverlay?.classList.toggle('active', willOpen);
       document.body.style.overflow = willOpen ? 'hidden' : '';
 
@@ -347,6 +386,7 @@ const currentPath = Astro.url.pathname;
       menuToggle?.setAttribute('aria-expanded', 'false');
       menuToggle?.setAttribute('aria-label', 'Menü öffnen');
       mobileMenu?.classList.remove('active');
+      mobileMenu?.setAttribute('aria-hidden', 'true');
       mobileOverlay?.classList.remove('active');
       document.body.style.overflow = '';
       menuToggle?.focus();

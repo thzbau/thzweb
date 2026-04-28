@@ -44,21 +44,33 @@ Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**
 │   ├── layouts/
 │   │   └── BaseLayout.astro  # Hauptlayout mit Skip-Link, Header, Footer, CookieBanner, WhatsAppButton
 │   ├── pages/                # Astro-Seiten (File-based Routing)
-│   │   ├── index.astro       # Startseite (Hero, Services, Trust-Bar, Prozess, Testimonials, CTA)
+│   │   ├── index.astro       # Startseite (Hero, Services-Teaser, Trust-Bar, Prozess, Testimonials, CTA)
 │   │   ├── leistungen.astro  # Detaillierte Service-Beschreibungen (5 Leistungen, alternierendes Layout)
 │   │   ├── referenzen.astro  # 7 Vorher-Nachher-Vergleiche (interaktive Slider)
 │   │   ├── ueber-uns.astro   # Über uns mit Portrait, Werte, Unternehmensdaten
 │   │   ├── kontakt.astro     # Kontakt + Web3Forms-Formular + Google Maps iFrame
-│   │   ├── impressum.astro   # Impressum (Pflichtseite)
-│   │   ├── datenschutz.astro # Datenschutzerklärung (Pflichtseite)
+│   │   ├── impressum.astro   # Impressum (rendert Markdown aus Content Collection)
+│   │   ├── datenschutz.astro # Datenschutzerklärung (rendert Markdown aus Content Collection)
 │   │   └── 404.astro         # 404 Fehlerseite (noindex)
+│   ├── data/                 # JSON-Datenquellen für Seiteninhalte
+│   │   ├── global.json       # Firmendaten, Navigation, Footer, Öffnungszeiten
+│   │   ├── services.json     # 5 Dienstleistungen mit Features
+│   │   ├── projects.json     # 7 Vorher-Nachher-Referenzprojekte
+│   │   └── pages/            # Seitenspezifische Inhalte (home, kontakt, leistungen, referenzen, ueber-uns)
+│   ├── content/              # Astro Content Collections
+│   │   └── legal/            # Markdown-Dateien für Impressum & Datenschutz
+│   │       ├── impressum.md
+│   │       └── datenschutz.md
 │   ├── styles/
 │   │   └── global.css        # Tailwind-Import, CSS-Variablen, Base Styles, Utility-Klassen
 │   └── assets/
-│       └── images/           # 34 Bilddateien (JPEG/JPG) für die gesamte Website
+│       └── images/           # Bilddateien (dupliziert unter public/images/cms/)
 ├── public/
+│   ├── admin/                # Decap CMS Admin-Panel (index.html + config.yml)
 │   ├── fonts/                # Lokale Schriftarten (leer; Schriften via @fontsource)
-│   ├── images/               # Statische Bilder (OG-Image)
+│   ├── images/               # Statische Bilder
+│   │   ├── cms/              # CMS-verwaltete Bilder (Logo, Hero, Leistungen, Referenzen, Über uns)
+│   │   └── og-image.jpg      # Open Graph Social-Media-Bild
 │   ├── favicon.ico
 │   ├── favicon.svg
 │   ├── apple-touch-icon.png
@@ -69,6 +81,7 @@ Dies ist eine statische Website für **THZ Innenrenovierung-Hausmeisterdienste**
 ├── astro.config.mjs          # Astro Konfiguration
 ├── tsconfig.json             # TypeScript Konfiguration mit Pfad-Aliassen
 ├── package.json              # Dependencies & Scripts
+├── src/content.config.ts     # Content-Collection-Definition (legal: Markdown mit Zod-Schema)
 ├── .env                      # Umgebungsvariablen (nicht im Git)
 └── .env.example              # Beispiel-Env-Datei
 ```
@@ -127,6 +140,15 @@ npm run astro [command]
 
 **Hinweis:** Die Aliasse sind konfiguriert, werden im bestehenden Code jedoch kaum genutzt. Die meisten Komponenten verwenden relative Imports (z. B. `../components/Header.astro`).
 
+### Content Collections (`src/content.config.ts`)
+
+Es gibt eine Collection `legal`, die Markdown-Dateien aus `src/content/legal/` lädt. Schema:
+- `title`: string (Pflicht)
+- `description`: string (Optional)
+- `noindex`: boolean (Default: false)
+
+Die Seiten `impressum.astro` und `datenschutz.astro` rendern diese Markdown-Inhalte via `getEntry()` und `render()`.
+
 ### Umgebungsvariablen
 
 Kopiere `.env.example` nach `.env` und konfiguriere:
@@ -141,6 +163,36 @@ PUBLIC_WEB3FORMS_KEY=your_web3forms_key_here
 ```
 
 **Wichtig:** `.env` ist in `.gitignore` eingetragen und wird nie committed.
+
+---
+
+## Content-Architektur
+
+### JSON-Datenquellen
+
+Die Website trennt Inhalt von Präsentation durch zentrale JSON-Dateien:
+
+| Datei | Verwendung |
+|-------|------------|
+| `src/data/global.json` | Firmendaten, Navigation, Footer, Öffnungszeiten, Schema.org-Geo-Daten |
+| `src/data/services.json` | 5 Dienstleistungen mit Teaser-/Detail-Beschreibungen, Features, Bildern |
+| `src/data/projects.json` | 7 Referenzprojekte mit Vorher-/Nachher-Bildpfaden |
+| `src/data/pages/home.json` | Startseite: Hero, Trust-Bar, Prozess-Schritte, Testimonials, CTA |
+| `src/data/pages/kontakt.json` | Kontaktseite: Formularfelder, Labels, Erfolgs-/Fehlermeldungen, Maps-URL |
+| `src/data/pages/leistungen.json` | Leistungen-Seite: Hero, CTA |
+| `src/data/pages/referenzen.json` | Referenzen-Seite: Hero, CTA |
+| `src/data/pages/ueber-uns.json` | Über-uns-Seite: Portrait, Werte, Unternehmensdaten |
+
+### Decap CMS (`public/admin/config.yml`)
+
+Das CMS verwaltet alle JSON-Datenquellen und die Markdown-Legal-Content über eine 473-zeilige `config.yml`. Wichtige Einstellungen:
+- **Backend:** git-gateway (Branch: master)
+- **Media-Folder:** `public/images/cms`
+- **Public-Folder:** `/images/cms`
+- **Publish-Mode:** editorial_workflow
+- **Locale:** de
+
+Das Admin-Panel ist unter `/admin/` erreichbar und lädt Decap CMS sowie Netlify Identity von unpkg.com.
 
 ---
 
@@ -252,10 +304,11 @@ const items = [...];
 
 ### Bildverwendung
 
-- Astro's `<Image />`-Komponente wird für alle Bilder verwendet (`import { Image } from 'astro:assets'`)
-- Bilder werden aus `src/assets/images/` importiert
-- Attribute wie `width`, `height`, `alt` sind Pflicht
-- Das `public/`-Verzeichnis enthält nur statische Assets wie Favicon, OG-Image, `robots.txt`, `sitemap.xml`, `site.webmanifest`
+- **Wichtig:** Die Website verwendet **keine** Astro `<Image />`-Komponente. Alle Bilder werden mit standard `<img>`-Tags aus dem `public/`-Verzeichnis geladen (z. B. `src="/images/cms/hero.jpg"`).
+- Das `public/images/cms/`-Verzeichnis ist das zentrale Bildverzeichnis und wird auch vom Decap CMS genutzt (`media_folder: "public/images/cms"`).
+- `src/assets/images/` enthält Duplikate der gleichen Dateien, wird aber aktuell nicht vom Code referenziert.
+- Attribute wie `width`, `height`, `alt` sind Pflicht.
+- Das `public/`-Verzeichnis enthält nur statische Assets wie Favicon, OG-Image, `robots.txt`, `sitemap.xml`, `site.webmanifest`.
 
 ### Accessibility (A11y) Standards
 
@@ -269,11 +322,11 @@ const items = [...];
 
 ### Performance-Optimierungen
 
-- `<Image />` Komponente von Astro verwendet (optimiert WebP/AVIF)
 - Inline-SVGs statt Icon-Fonts
-- `loading="lazy"` für unter-the-fold Bilder (wird von Astro Image automatisch gesetzt)
+- `loading="lazy"` für unter-the-fold Bilder
 - CSS-Variablen für schnelle Theme-Updates
 - `compressHTML: true` und `prefetch: true` in Astro Config
+- Preconnect/DNS-Prefetch zu `api.web3forms.com`
 
 ---
 
@@ -286,9 +339,10 @@ const items = [...];
 | Referenzen | `/referenzen` | 7 interaktive Vorher-Nachher-Vergleiche mit Slider-Funktion |
 | Über uns | `/ueber-uns` | Unternehmensinfos, Portrait von Halil Zeka, 4 Werte-Karten, Firmendaten |
 | Kontakt | `/kontakt` | Web3Forms-Formular + Kontaktdaten + Google Maps iFrame |
-| Impressum | `/impressum` | Rechtliches (Pflicht) |
-| Datenschutz | `/datenschutz` | DSGVO-Text (Pflicht) |
+| Impressum | `/impressum` | Rechtliches (Pflichtseite, rendert Markdown aus Content Collection) |
+| Datenschutz | `/datenschutz` | DSGVO-Text (Pflichtseite, rendert Markdown aus Content Collection) |
 | 404 | `/404` | Fehlerseite mit `noindex` |
+| CMS Admin | `/admin` | Decap CMS Backend für Content-Management |
 
 ---
 
@@ -296,13 +350,15 @@ const items = [...];
 
 Die Website ist auf DSGVO-Konformität ausgelegt:
 
-- **100% lokale Ressourcen** (keine externen CDNs für Schriften oder Scripts)
+- **100% lokale Ressourcen** (keine externen CDNs für Schriften oder Scripts auf der öffentlichen Website)
 - **Lokale Schriften** (@fontsource/inter, kein Google Fonts CDN)
 - **Keine Tracking-Scripts** (kein Google Analytics)
 - **Cookie-Banner** mit Opt-In/Opt-Out (localStorage)
 - **Web3Forms** (Formular-Backend)
 - **Vollständige Datenschutzerklärung**
 - **Security Headers** via `netlify.toml`
+
+**Ausnahme:** Das Decap CMS Admin-Panel (`/admin/`) lädt `decap-cms.js` und `netlify-identity-widget.js` von `unpkg.com`. Die CSP in `netlify.toml` erlaubt daher explizit `script-src 'unsafe-eval' https://unpkg.com https://identity.netlify.com`.
 
 ### Cookie-Banner-Implementierung
 
@@ -324,7 +380,7 @@ X-XSS-Protection = "1; mode=block"
 Referrer-Policy = "strict-origin-when-cross-origin"
 Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
 Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.web3forms.com; frame-src 'self' https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;"
+Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://identity.netlify.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.web3forms.com https://thz-renovierung.de https://*.netlify.com; frame-src 'self' https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;"
 ```
 
 Zusätzlich sind Cache-Header für statische Assets (`/_astro/*`, `*.woff2`, `*.webp`, `*.avif`) auf 1 Jahr konfiguriert.
@@ -346,6 +402,7 @@ Zusätzlich sind Cache-Header für statische Assets (`/_astro/*`, `*.woff2`, `*.
 3. Build-Einstellungen:
    - **Build Command:** `npm run build`
    - **Publish Directory:** `dist`
+4. Netlify Identity aktivieren und Git Gateway konfigurieren für Decap CMS
 
 ### Manuelles Deployment
 
@@ -362,7 +419,7 @@ npm run build
 
 In `BaseHead.astro` implementiert:
 - **LocalBusiness:** Firmendaten, Adresse (Roster str 66, 57074 Siegen), Geo-Koordinaten (50.8756, 8.0160), Öffnungszeiten (Mo–Fr 08:00–18:00)
-- **WebSite:** Website-Struktur, SearchAction
+- **WebSite:** Website-Struktur
 
 ### Open Graph Tags
 
@@ -425,15 +482,19 @@ Alle Seiten haben vollständige OG-Tags für Social Sharing:
 
 - [ ] Node.js Version aktuell halten (>=22.12.0)
 - [ ] `npm audit` für Security-Updates
-- [ ] Bilder optimieren (WebP/AVIF via Astro Image)
+- [ ] Bilder optimieren (siehe Hinweis unten)
 - [ ] Lighthouse-Score prüfen
 
 ### Änderungen an Kerninhalten
 
 Folgende Daten sind redundant an mehreren Stellen hinterlegt und müssen bei Änderungen synchronisiert werden:
-- **Unternehmensname, Adresse, Telefon, E-Mail:** In `BaseHead.astro`, `Footer.astro`, `Header.astro`, `kontakt.astro`, `impressum.astro`, `datenschutz.astro`, `ueber-uns.astro`
-- **Öffnungszeiten:** In `BaseHead.astro` (Schema.org JSON-LD) und `kontakt.astro`
-- **Navigation:** In `Header.astro`
+- **Unternehmensname, Adresse, Telefon, E-Mail:** In `src/data/global.json` (zentrale Quelle), sowie hartcodiert in den Markdown-Dateien `src/content/legal/impressum.md` und `src/content/legal/datenschutz.md`
+- **Öffnungszeiten:** In `src/data/global.json` (Schema.org JSON-LD und Kontaktseite)
+- **Navigation:** In `src/data/global.json`
+- **Dienstleistungen:** In `src/data/services.json`
+- **Testimonials/Referenzen:** In `src/data/pages/home.json` bzw. `src/data/projects.json`
+
+**Empfohlen:** Änderungen über das Decap CMS (`/admin/`) vornehmen, damit die JSON-Dateien konsistent bleiben.
 
 ---
 
@@ -442,10 +503,11 @@ Folgende Daten sind redundant an mehreren Stellen hinterlegt und müssen bei Än
 | Problem | Lösung |
 |---------|--------|
 | `astro` Befehl nicht gefunden | `npm install` ausführen |
-| Bilder werden nicht optimiert | `Image` Komponente verwenden, nicht `<img>` |
 | Styles nicht geladen | Prüfen ob `@import "tailwindcss";` in `global.css` vorhanden ist |
 | Formular sendet nicht | Web3Forms Key prüfen (`PUBLIC_WEB3FORMS_KEY`) |
 | Build schlägt fehl | Node.js Version prüfen (>=22.12.0) |
+| CMS lädt nicht | Netlify Identity und Git Gateway in Netlify-Settings aktivieren |
+| Bilder erscheinen nicht | Prüfen ob Dateien in `public/images/cms/` vorhanden sind |
 
 ---
 
@@ -456,3 +518,4 @@ Folgende Daten sind redundant an mehreren Stellen hinterlegt und müssen bei Än
 - [Web3Forms Dokumentation](https://docs.web3forms.com/)
 - [Schema.org LocalBusiness](https://schema.org/LocalBusiness)
 - [Netlify Dokumentation](https://docs.netlify.com/)
+- [Decap CMS Dokumentation](https://decapcms.org/docs/)

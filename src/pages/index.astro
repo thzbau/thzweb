@@ -91,6 +91,8 @@ const { meta, hero, trustBar, servicesSection, processSection, testimonialsSecti
                 class="service-img"
                 width={400}
                 height={250}
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <h3 class="service-title">{service.title}</h3>
@@ -206,10 +208,6 @@ const { meta, hero, trustBar, servicesSection, processSection, testimonialsSecti
     line-height: 1.2;
     margin-bottom: var(--spacing-md);
     color: var(--color-text-primary);
-  }
-
-  .text-accent {
-    color: var(--color-accent-hover);
   }
 
   .hero-subtitle {
